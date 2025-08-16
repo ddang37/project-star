@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://2fifna8boq8o"]
+[gd_scene load_steps=3 format=3 uid="uid://2fifna8boq8o"]
+
+[ext_resource type="Texture2D" uid="uid://dngnxujawlbg5" path="res://sprites/prototype/bob.png" id="1_0r5m1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m3dva"]
+radius = 0.489958
+height = 0.979915
 
 [node name="Player" type="CharacterBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_m3dva")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+texture_filter = 4
+texture = ExtResource("1_0r5m1")
