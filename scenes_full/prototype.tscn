@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7c5p3woxcwaj"]
+[gd_scene load_steps=8 format=3 uid="uid://c7c5p3woxcwaj"]
 
 [ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scenes_full/player.gd" id="1_ggon3"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://scenes_full/prototype.tres" id="2_bjm3d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
 size = Vector3(60, 2, 60)
@@ -11,6 +12,10 @@ size = Vector3(60, 2, 60)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m1m0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggon3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05f11"]
+render_priority = 0
+shader = ExtResource("2_bjm3d")
 
 [node name="Prototype" type="Node3D"]
 
@@ -31,6 +36,7 @@ shape = SubResource("CapsuleShape3D_1m1m0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_ggon3")
+surface_material_override/0 = SubResource("ShaderMaterial_05f11")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.770402, -0.637558, 0, 0.637558, 0.770402, 0, 0, 0)
