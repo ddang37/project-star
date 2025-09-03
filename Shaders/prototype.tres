@@ -1,10 +1,10 @@
 [gd_resource type="VisualShader" load_steps=19 format=3 uid="uid://bj52sv4noi8eh"]
 
-[ext_resource type="Texture2D" uid="uid://denucg11nfgxq" path="res://textures/colornoise.jpg" id="1_eupv1"]
-[ext_resource type="Texture2D" uid="uid://cubil75wqx67v" path="res://textures/foam.png" id="2_23pir"]
+[ext_resource type="Texture2D" uid="uid://denucg11nfgxq" path="res://textures/colornoise.jpg" id="1_7y3ay"]
+[ext_resource type="Texture2D" uid="uid://cubil75wqx67v" path="res://textures/foam.png" id="2_bh3a8"]
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_6j7e1"]
-texture = ExtResource("1_eupv1")
+texture = ExtResource("1_7y3ay")
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_lpg11"]
 default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
@@ -53,7 +53,7 @@ op_type = 0
 operator = 3
 
 [sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_82ph1"]
-texture = ExtResource("2_23pir")
+texture = ExtResource("2_bh3a8")
 
 [sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_21bkd"]
 constant = 32.0
@@ -63,7 +63,7 @@ varying_name = "Resolution"
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, depth_test_default, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 
 // Varyings
