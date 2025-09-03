@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 var speed = 14
 var target_velocity = Vector3.ZERO
