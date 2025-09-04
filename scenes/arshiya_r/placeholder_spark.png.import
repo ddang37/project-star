@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd7ptr1m0xiqx"
-path.s3tc="res://.godot/imported/smoke_04.png-1189648b67e2e34f297f39809032a6e2.s3tc.ctex"
+uid="uid://cbny2mai7kkgi"
+path.s3tc="res://.godot/imported/placeholder_spark.png-a86d42fdd7222b2b0e4fbb758777922d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://VFX/Kenny Particle Pack/smoke_04.png"
-dest_files=["res://.godot/imported/smoke_04.png-1189648b67e2e34f297f39809032a6e2.s3tc.ctex"]
+source_file="res://scenes/arshiya_r/placeholder_spark.png"
+dest_files=["res://.godot/imported/placeholder_spark.png-a86d42fdd7222b2b0e4fbb758777922d.s3tc.ctex"]
 
 [params]
 

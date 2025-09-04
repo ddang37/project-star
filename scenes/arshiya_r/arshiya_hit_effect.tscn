@@ -1,0 +1,136 @@
+[gd_scene load_steps=26 format=3 uid="uid://b5iia0lkg2h3v"]
+
+[ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_n5qnk"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://Shaders/prototype.tres" id="2_cayvy"]
+[ext_resource type="Shader" uid="uid://c3f31yffno2lt" path="res://scenes/arshiya_r/hit_effect_one.tres" id="3_ot4fm"]
+[ext_resource type="Texture2D" uid="uid://b1rclnthv4v2c" path="res://scenes/arshiya_r/placeholder_effect_texture.png" id="4_qjh8i"]
+[ext_resource type="Shader" uid="uid://5llgqabmefnw" path="res://scenes/arshiya_r/spark_effect.tres" id="5_3gxpo"]
+[ext_resource type="Texture2D" uid="uid://cbny2mai7kkgi" path="res://scenes/arshiya_r/placeholder_spark.png" id="6_0j67d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1m1m0"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m1m0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ggon3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_05f11"]
+render_priority = 0
+shader = ExtResource("2_cayvy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd17l"]
+render_priority = 0
+shader = ExtResource("3_ot4fm")
+shader_parameter/hit_texture = ExtResource("4_qjh8i")
+
+[sub_resource type="Curve" id="Curve_kaslv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.502809, 0.992834), 0.0, 0.0, 0, 0, Vector2(0.991573, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2vo2t"]
+curve = SubResource("Curve_kaslv")
+
+[sub_resource type="Gradient" id="Gradient_tatvo"]
+colors = PackedColorArray(8, 0.8, 0, 1, 1, 0.5, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dupmg"]
+gradient = SubResource("Gradient_tatvo")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_0j1ip"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_37dpo"]
+curve = SubResource("Curve_0j1ip")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_t8jt2"]
+angle_min = -180.0
+angle_max = 180.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.8
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_37dpo")
+color_ramp = SubResource("GradientTexture1D_dupmg")
+alpha_curve = SubResource("CurveTexture_2vo2t")
+
+[sub_resource type="QuadMesh" id="QuadMesh_y262s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b0p27"]
+render_priority = 0
+shader = ExtResource("5_3gxpo")
+shader_parameter/hit_texture = ExtResource("6_0j67d")
+
+[sub_resource type="Curve" id="Curve_hphtt"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kl767"]
+curve = SubResource("Curve_hphtt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_repmm"]
+particle_flag_align_y = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 8.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.5
+color = Color(2.5, 2, 0.5, 1)
+alpha_curve = SubResource("CurveTexture_kl767")
+
+[sub_resource type="QuadMesh" id="QuadMesh_h64g4"]
+size = Vector2(0.05, 0.3)
+
+[node name="Prototype" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_1m1m0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_1m1m0")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32074, 0)
+script = ExtResource("1_n5qnk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_1m1m0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_ggon3")
+surface_material_override/0 = SubResource("ShaderMaterial_05f11")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.770402, -0.637558, 0, 0.637558, 0.770402, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Marker3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -19)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.996632, 0, 0.0820081, 0.0619636, 0.655057, 0.753034, -0.05372, 0.755579, -0.652851, 0, 22.456, 0)
+
+[node name="HIT" type="Node3D" parent="."]
+transform = Transform3D(4.97169, 0.0152793, -0.531075, 0, 4.99793, 0.143793, 0.531295, -0.142979, 4.96964, 7.69114, 11.6622, 20.1706)
+
+[node name="main" type="GPUParticles3D" parent="HIT"]
+material_override = SubResource("ShaderMaterial_nd17l")
+amount = 1
+lifetime = 0.25
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_t8jt2")
+draw_pass_1 = SubResource("QuadMesh_y262s")
+
+[node name="sparks" type="GPUParticles3D" parent="HIT"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_b0p27")
+lifetime = 0.25
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_repmm")
+draw_pass_1 = SubResource("QuadMesh_h64g4")
