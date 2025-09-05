@@ -3,6 +3,7 @@ class_name Player
 
 var speed = 14
 var target_velocity = Vector3.ZERO
+#@export_range(0.0, 1.0, 0.01) var camera_follow_speed : float = 0.15
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
@@ -26,3 +27,8 @@ func _physics_process(delta):
 	
 	velocity = target_velocity
 	move_and_slide()
+	
+	if Input.is_action_just_pressed("basic_attack"):
+		$CameraTarget/PitchPivot.shake(1.0)
+	
+	#$CameraTarget.position = lerp($CameraTarget.position, position, camera_follow_speed)
