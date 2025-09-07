@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_pressed("pause_game"):#If esc is pressed
 		get_tree().paused = true;
-		show();#This node's process mode is set to "Always", allowing it to operate as usual.
+		show();#This node's process mode is set to "Aways", allowing it to operate as usual.
 		#This given, if we want to make systems available during pause,
 		#set them to "When paused".
 		#I WILL FIND OUT A BETTER WAY TO DO THIS I PROMISE
