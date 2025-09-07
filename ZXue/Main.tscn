@@ -54,3 +54,6 @@ transform = Transform3D(-0.996632, 0, 0.0820081, 0.0619636, 0.655057, 0.753034, 
 
 [node name="PauseScreen" parent="." instance=ExtResource("2_lrf3c")]
 process_mode = 3
+
+[node name="EnemyDynaMite" parent="." instance=ExtResource("4_lrf3c")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, -7.24157, 1.00683, -11.2761)
