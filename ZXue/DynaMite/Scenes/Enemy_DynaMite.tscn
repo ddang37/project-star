@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqokxhofhov86"]
+
+[ext_resource type="Script" uid="uid://3xfcy408ikw5" path="res://ZXue/DynaMite/Scripts/enemy_dyna_mite.gd" id="1_wqpmk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wqpmk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wqpmk"]
+
+[node name="EnemyDynaMite" type="Node3D" groups=["Enemies"]]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
+script = ExtResource("1_wqpmk")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="ExplosionRangeCollision" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(5.405, 0, 0, 0, 5.405, 0, 0, 0, 5.405, 0, 0.499545, 0)
+shape = SubResource("SphereShape3D_wqpmk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.53, 0, 0, 0, 1, 0, 0.536494, 0)
+mesh = SubResource("CapsuleMesh_wqpmk")
+
+[node name="SelfDestructionTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[connection signal="timeout" from="SelfDestructionTimer" to="." method="_on_self_destruction_timer_timeout"]
