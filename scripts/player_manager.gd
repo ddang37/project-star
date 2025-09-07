@@ -7,10 +7,10 @@ func _ready() -> void:
 	# e.g. if the player leaves scene1 and enters scene2, they should have the same selected character
 	current_char = get_child(0)
 	current_char.set_process_mode(Node.PROCESS_MODE_ALWAYS)
-	for char in get_children():
-		if char.name != current_char.name:
-			char.visible = false
-			char.set_process_mode(Node.PROCESS_MODE_DISABLED)
+	for c in get_children():
+		if c.name != current_char.name:
+			c.visible = false
+			c.set_process_mode(Node.PROCESS_MODE_DISABLED)
 	
 
 func _process(delta: float) -> void:
