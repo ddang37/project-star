@@ -19,6 +19,10 @@ config/icon="uid://6yho8q064sn0"
 
 project/assembly_name="Project Star"
 
+[global_group]
+
+Enemies="Group for all enemies in game."
+
 [input]
 
 move_left={
