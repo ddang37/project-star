@@ -5,7 +5,7 @@ var current_char: CharacterBody3D
 func _ready() -> void:
 	# TODO: Should load or somehow maintain the character's selected char throughout scenes
 	# e.g. if the player leaves scene1 and enters scene2, they should have the same selected character
-	current_char = get_child(0) # temp
+	current_char = get_child(0)
 	current_char.set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	for char in get_children():
 		if char.name != current_char.name:
@@ -15,11 +15,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if (Input.is_action_just_pressed("select_char1")):
-		change_char(0)
+		swap_char(0)
 	elif (Input.is_action_just_pressed("select_char2")):
-		change_char(1)
+		swap_char(1)
 	elif (Input.is_action_just_pressed("select_char3")):
-		change_char(2)
+		swap_char(2)
 
 '''
 	Uses node hierarchy for character switching, assuming characters are the only direct children 
@@ -31,7 +31,7 @@ func _process(delta: float) -> void:
 	- - - Player2
 		  ...
 '''
-func change_char(idx: int):
+func swap_char(idx: int):
 	if idx < get_child_count() and current_char.name != get_child(idx).name:
 		var new_char: CharacterBody3D = get_child(idx)
 		
