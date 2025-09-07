@@ -36,12 +36,12 @@ func swap_char(idx: int):
 		var new_char: CharacterBody3D = get_child(idx)
 		
 		current_char.visible = false
-		current_char.set_process_mode(Node.PROCESS_MODE_DISABLED)
+		current_char.set_process_mode(Node.PROCESS_MODE_DISABLED) # disables all processing
 		new_char.set_global_transform(current_char.get_global_transform())
 		
 		# TODO: Manage state
 		# Could set the new character's state to the former selected character's through some sort of map
-		# Could also just reset the state to some normal one like idle or walk if the FSM is good enough
+		# Could also just reset the state to some general one like idle or walk if the FSM is good enough
 		
 		current_char = new_char
 		current_char.visible = true
