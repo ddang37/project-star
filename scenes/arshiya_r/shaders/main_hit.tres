@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://c3f31yffno2lt"]
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://ceom5ccl0m02y"]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_isyeb"]
 expanded_output_ports = [0]
@@ -68,7 +68,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-156.419, -75.1582)
+graph_offset = Vector2(-116.98, 32.9641)
 flags/unshaded = true
 nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_x81bc")
 nodes/vertex/2/position = Vector2(80, 420)
@@ -82,4 +82,4 @@ nodes/fragment/4/node = SubResource("VisualShaderNodeTexture_do8pa")
 nodes/fragment/4/position = Vector2(260, 460)
 nodes/fragment/5/node = SubResource("VisualShaderNodeFloatOp_pykdj")
 nodes/fragment/5/position = Vector2(580, 480)
-nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 4, 2, 4, 1, 5, 0, 2, 4, 5, 1, 5, 0, 0, 1)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 3, 0, 4, 2, 5, 0, 0, 1, 2, 4, 5, 1, 4, 1, 5, 0)
