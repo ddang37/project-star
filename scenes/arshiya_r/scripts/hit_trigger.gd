@@ -1,7 +1,8 @@
 extends Node
 
-@onready var main: GPUParticles3D = $HIT/main
-@onready var sparks: GPUParticles3D = $HIT/sparks
+@onready var main: GPUParticles3D = $main
+@onready var sparks: GPUParticles3D = $sparks
+
 
 var enabled: bool = false
 var timeElapsed: float = 0
@@ -16,3 +17,4 @@ func _physics_process(delta):
 	if (!enabled && timeElapsed >= timeLimit):
 		print("started the sparks!")
 		sparks.emitting = true
+		enabled = true
