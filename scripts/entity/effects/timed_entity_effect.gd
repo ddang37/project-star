@@ -2,6 +2,7 @@
 ##
 ## Set [member effect_tick_interval] > [member effect_duration] to never tick
 ## the effect. All times are in msec unless listed otherwise.
+@abstract
 class_name TimedEntityEffect extends EntityEffect
 
 @export var effect_duration: int = 1000
@@ -20,12 +21,12 @@ func process(delta: float) -> bool:
 	var time_since_last_tick: int = valid_time - _last_tick
 	if time_since_last_tick >= effect_tick_interval:
 		var ticks: int = time_since_last_tick / effect_tick_interval
-		for i in ticks:
+		for i in range(ticks):
 			tick()
 		_last_tick += effect_tick_interval * ticks
 	if _current_time >= effect_duration:
 		return false
 	return true
 
-func tick() -> void:
-	pass
+@abstract
+func tick() -> void

@@ -1,3 +1,4 @@
+@abstract
 class_name Entity extends CharacterBody3D
 
 enum Faction {PLAYER, NEUTRAL, HOSTILE}

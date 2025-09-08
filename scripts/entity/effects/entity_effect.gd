@@ -1,4 +1,4 @@
-## Abstract class 
+@abstract
 class_name EntityEffect
 
 var _entity: Entity
@@ -14,10 +14,10 @@ func try_apply(entity: Entity) -> bool:
 
 ## Called to process the [EntityEffect] and indicate when it is done.[br]
 ## Returns true if still in progress, returns false if effect has finished.
-func process(delta: float) -> bool:
-	return false
+@abstract
+func process(delta: float) -> bool
 
 ## Called when the [EntityEffect] should be removed.[br]
 ## Performs any necessary cleanup and applies any permanent effects.[br]
-func stop() -> void:
-	pass
+@abstract
+func stop() -> void
