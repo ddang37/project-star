@@ -1,7 +1,5 @@
-extends CharacterBody3D
-class_name Player
+class_name Player extends Entity
 
-var speed = 14
 var target_velocity = Vector3.ZERO
 
 func _physics_process(delta):
@@ -21,8 +19,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("dodge"):
 		direction *= 7
 	
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
+	target_velocity.x = direction.x * _movement_speed
+	target_velocity.z = direction.z * _movement_speed
 	
 	velocity = target_velocity
 	move_and_slide()

@@ -48,7 +48,6 @@ script = ExtResource("1_8jnod")
 
 [node name="Player" type="CharacterBody3D" parent="PlayerManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32074, 0)
-script = ExtResource("1_klax2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerManager/Player"]
 shape = SubResource("CapsuleShape3D_1m1m0")
