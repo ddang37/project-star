@@ -15,14 +15,14 @@ func _input(event: InputEvent) -> void:
 		#play animation here
 		attack_speed.start()
 		can_attack = false
-		print("attack")
+		#print("attack")
 		$".".visible = true
 		
 	if Input.is_action_just_pressed("move_left"):
 		$".".position.x += 0.5
 		$".".position.x = clamp(position.x, -0.5,0.5)
 	if Input.is_action_just_pressed("move_right"):
-		$".".position.x -= 0.5
+		$".".position.x -= 0.5 
 		$".".position.x = clamp(position.x, -0.5,0.5)
 	if Input.is_action_just_pressed("move_up"):
 		$".".position.z += 0.5
