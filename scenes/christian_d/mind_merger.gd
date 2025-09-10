@@ -1,4 +1,4 @@
-class_name MindMerger extends RigidBody3D
+class_name MindMerger extends Enemy
 
 signal update(pos: Array[Vector3])
 signal killed
@@ -12,11 +12,7 @@ signal killed
 @export var MAX_EXPANSION: float = 2
 @export var EXPANSION_SPEED: float = 0.5
 @export var EXPANSION_CURVE: Curve
-		
-	
 @export_category("Movement")
-@export var SPEED: float = 5
-@export var SLOW_DIST: float = 1
 @export var FOLLOW_MIN_DIST: float = 5
 
 # Merger Vars
@@ -28,9 +24,8 @@ var rotation_flip_mult: int = 1
 var expansion_time: float = 0
 var expansion_mult: int = 1
 
-# Movement Vars
+# Player Reference to compute target
 var player: Player
-var target: Vector3
 
 # Run by Enemy Manager on Merger Spawn. vRegisters and Configures Minions
 func setup(_minions) -> void:
@@ -60,17 +55,10 @@ func _process(delta: float) -> void:
 	for i in range(minions.size()):
 		minion_pos[i] = global_position + (Vector3.RIGHT * (MINION_OFFSET + MAX_EXPANSION * EXPANSION_CURVE.sample(expansion_time))).rotated(Vector3.UP, deg_to_rad(i * 360 / minions.size() + rotation_offset))
 	update.emit(minion_pos)
-		
+
 	## Sets Movement Target to be FOLLOW_MIN_DIST from Player. If has no Minions, Follow Twice as far.
-	target = player.global_position-(player.global_position-global_position).normalized()*FOLLOW_MIN_DIST*(2 if minions.size() == 0 else 1)
-	
-## Executes Movement to Target
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	var err = (target-global_position)
-	err = err.lerp(Vector3.ZERO, 1-err.length()/SLOW_DIST)*SPEED if err.length() < SLOW_DIST else err.normalized()*SPEED
-	state.linear_velocity = Vector3(err.x, -1, err.z)
-	state.angular_velocity = Vector3.ZERO	
-	
+	set_movement_target(player.global_position-(player.global_position-global_position).normalized()*FOLLOW_MIN_DIST*(2 if minions.size() == 0 else 1))
+
 ## Unregisteres Minion from Merger, Reduces Shape to one less Vertex
 func remove_minion(n: int) -> void:
 	if minions.size() == 3:
@@ -84,6 +72,6 @@ func remove_minion(n: int) -> void:
 	for i in range(minions.size()):
 		(minions[i] as MergerTestEnemy).merge_num_update(i)
 		
-func kill() -> void:
+func trigger_death():
 	killed.emit()
-	self.queue_free()
+	super()

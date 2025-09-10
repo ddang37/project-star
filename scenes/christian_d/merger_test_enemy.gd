@@ -1,5 +1,5 @@
 ## Test Enemy to be controlled by Mind Merger
-class_name MergerTestEnemy extends Node3D
+class_name MergerTestEnemy extends Enemy
 
 @export var SPEED: float = 7
 @export var MERGED_SPEED: float = 15

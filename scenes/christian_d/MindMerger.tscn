@@ -1,9 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://jr71mbkvd0y7"]
+[gd_scene load_steps=7 format=3 uid="uid://jr71mbkvd0y7"]
 
 [ext_resource type="Script" uid="uid://cqvnsb4oww5ln" path="res://scenes/christian_d/mind_merger.gd" id="1_wql7c"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_67oe1"]
-friction = 0.0
 
 [sub_resource type="Curve" id="Curve_wql7c"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5163044, 0.49438208), 2.6009421, 2.6009421, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -22,11 +19,10 @@ albedo_color = Color(0.819608, 0.207843, 1, 1)
 material = SubResource("StandardMaterial3D_67oe1")
 height = 3.0
 
-[node name="MindMerger" type="RigidBody3D"]
-physics_material_override = SubResource("PhysicsMaterial_67oe1")
-custom_integrator = true
+[node name="MindMerger" type="CharacterBody3D"]
 script = ExtResource("1_wql7c")
 EXPANSION_CURVE = SubResource("Curve_wql7c")
+_movement_speed = 5.0
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -41,3 +37,5 @@ shape = SubResource("BoxShape3D_kpfxc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_kpfxc")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
