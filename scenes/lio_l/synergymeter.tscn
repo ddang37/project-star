@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bsq8ycm0nwhdu"]
 
-[ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_sp46l"]
-[ext_resource type="Script" uid="uid://dyfgr25eaam60" path="res://scripts/synergy_script.gd" id="2_j2hce"]
+[ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="1_sp46l"]
+[ext_resource type="Script" uid="uid://dyfgr25eaam60" path="res://scenes/lio_l/synergy_script.gd" id="2_j2hce"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2hce"]
 
