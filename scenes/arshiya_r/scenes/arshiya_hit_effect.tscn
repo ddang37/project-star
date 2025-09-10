@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=3 uid="uid://cwgk6ss6abnab"]
 
 [ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_jbkjt"]
-[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://Shaders/prototype.tres" id="2_m5tuo"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_m5tuo"]
 [ext_resource type="Shader" uid="uid://ceom5ccl0m02y" path="res://scenes/arshiya_r/shaders/main_hit.tres" id="3_3gad6"]
 [ext_resource type="Script" uid="uid://bjbekw5kfq6a7" path="res://scenes/arshiya_r/scripts/hit_trigger.gd" id="3_m5tuo"]
 [ext_resource type="Texture2D" uid="uid://b1rclnthv4v2c" path="res://scenes/arshiya_r/textures/main_hit.png" id="4_lfmvk"]

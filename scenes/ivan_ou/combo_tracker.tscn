@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bc2oso0fpv5fw"]
 
 [ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_645b4"]
-[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://Shaders/prototype.tres" id="2_f23kj"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_f23kj"]
 [ext_resource type="Script" uid="uid://b8slq838gqq8o" path="res://scripts/combo_tracker.gd" id="3_e5ymd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
