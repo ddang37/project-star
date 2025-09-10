@@ -1,10 +1,23 @@
 extends CharacterBody3D
 class_name Player
 
+
 var speed = 14
 var target_velocity = Vector3.ZERO
 
+#Zifeng Xue
+var pos:Vector3;
+
+#Zifeng Xue
+func _ready() -> void:
+	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin);
+
 func _physics_process(delta):
+	
+	#Zifeng Xue
+	#code for notifying enemies of where the player is, this happens all the time.
+	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin);
+	
 	var direction = Vector3.ZERO
 	if Input.is_action_pressed("move_left"):
 		direction.x += 1
