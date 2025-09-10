@@ -5,8 +5,8 @@
 @abstract
 class_name TimedEntityEffect extends EntityEffect
 
-@export var effect_duration: int = 1000
-@export var effect_tick_interval: int = 2000
+var effect_duration: int
+var effect_tick_interval: int
 var _last_tick: int
 var _current_time: int
 

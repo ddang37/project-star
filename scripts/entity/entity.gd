@@ -8,17 +8,22 @@ enum Faction {PLAYER, NEUTRAL, HOSTILE}
 @export var _hp: float = 10.0
 @export var _max_hp: float = 10.0
 
-var _status_effects: Set = Set.new()
-var _stopped_effects: Set = Set.new()
+var _status_effects: Dictionary[EntityEffect.EffectID, EntityEffect] = {}
+var _stopped_effects: Array[EntityEffect.EffectID] = []
 
 func _process(delta: float) -> void:
-	for effect: EntityEffect in _status_effects.iterable():
+	for id: EntityEffect.EffectID in _status_effects:
+		var effect = _status_effects.get(id)
 		if not effect.process(delta):
 			effect.stop()
-			_stopped_effects.add(effect)
-	for effect: EntityEffect in _stopped_effects.iterable():
-		_status_effects.remove(effect)
+			_stopped_effects.append(id)
+	for id: EntityEffect.EffectID in _stopped_effects:
+		_status_effects.erase(id)
 	_stopped_effects.clear()
+
+func apply_effect(effect: EntityEffect):
+	_status_effects.set(effect.id, effect)
+	effect.try_apply(self)
 
 func try_damage(damage_amount: float) -> bool:
 	if damage_amount <= 0:

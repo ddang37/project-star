@@ -1,7 +1,14 @@
 @abstract
-class_name EntityEffect
+class_name EntityEffect extends Node3D
 
+enum EffectID {
+	DEBUG_EFFECT
+}
+var id: EffectID
 var _entity: Entity
+
+@abstract
+func _init(effect_id: EffectID) -> void
 
 ## Called whenever the [EntityEffect] is applied or reapplied.[br]
 ## Returns false if provided [Entity] is null, true if valid
