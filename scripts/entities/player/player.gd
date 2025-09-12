@@ -1,10 +1,14 @@
-extends CharacterBody3D
-class_name Player
+class_name Player extends Entity
 
-var speed = 14
 var target_velocity = Vector3.ZERO
+var pos: Vector3
+
+func _ready() -> void:
+	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
 
 func _physics_process(delta):
+	# TODO Track player location via GameManager instead
+	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
 	var direction = Vector3.ZERO
 	if Input.is_action_pressed("move_left"):
 		direction.x += 1
@@ -21,8 +25,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("dodge"):
 		direction *= 7
 	
-	target_velocity.x = direction.x * speed
-	target_velocity.z = direction.z * speed
+	target_velocity.x = direction.x * _movement_speed
+	target_velocity.z = direction.z * _movement_speed
 	
 	velocity = target_velocity
 	move_and_slide()
