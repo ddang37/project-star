@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://crqwkpb2jn8fq"]
+
+[ext_resource type="Script" uid="uid://c1iptw5vqre6f" path="res://scenes/arshiya_r/scripts/Hitbox.gd" id="1_6v43l"]
+[ext_resource type="Script" uid="uid://dbgqvlk72h7l" path="res://scenes/arshiya_r/scripts/RangedWeapon.gd" id="1_duflq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_duflq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kfiv0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pcnfp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kfiv0"]
+
+[node name="RangedWeapon" type="Node3D"]
+script = ExtResource("1_duflq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_overlay = SubResource("StandardMaterial3D_duflq")
+mesh = SubResource("SphereMesh_kfiv0")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_6v43l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("SphereShape3D_pcnfp")
+
+[node name="ImpactDetector" type="Area3D" parent="."]
+collision_mask = 0
+monitorable = false
+script = ExtResource("1_6v43l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ImpactDetector"]
+shape = SubResource("SphereShape3D_kfiv0")
+
+[node name="Timer" type="Timer" parent="."]
