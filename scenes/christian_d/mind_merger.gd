@@ -1,7 +1,8 @@
 class_name MindMerger extends Enemy
 
 signal update(pos: Array[Vector3])
-signal killed
+signal reindex(arr: Array[int])
+signal unmerge
 
 @export_category("Rotation")
 @export var ROTATION_SPEED_DEG_PER_SEC: float = 60
@@ -16,7 +17,6 @@ signal killed
 @export var FOLLOW_MIN_DIST: float = 5
 
 # Merger Vars
-var minions: Array
 var minion_pos: Array[Vector3] = []
 var rotation_offset: float = 0
 var rotation_flip_wait: float = 0
@@ -27,15 +27,13 @@ var expansion_mult: int = 1
 # Player Reference to compute target
 var player: Player
 
-# Run by Enemy Manager on Merger Spawn. vRegisters and Configures Minions
-func setup(_minions) -> void:
-	minions = _minions as Array
-	minion_pos.resize(minions.size())
-	for i in range(minions.size()):
-		(minions[i] as MergerTestEnemy).merge_with(self, i)
-		(minions[i] as MergerTestEnemy).killed.connect(remove_minion)
+	
+func _setup(_player: Player, num: int):
+	player = _player
+	minion_pos.resize(num)
 	
 func _process(delta: float) -> void:
+	super(delta)
 	## Calculates Minion Rotation
 	if (rotation_flip_wait <= 0):
 		rotation_flip_wait = lerp(MIN_ROTATION_WAIT, MAX_ROTATION_WAIT, randf())
@@ -52,26 +50,29 @@ func _process(delta: float) -> void:
 		expansion_time += EXPANSION_SPEED * delta * expansion_mult
 	
 	## Calculates Minion Positions and sends to Minions
-	for i in range(minions.size()):
-		minion_pos[i] = global_position + (Vector3.RIGHT * (MINION_OFFSET + MAX_EXPANSION * EXPANSION_CURVE.sample(expansion_time))).rotated(Vector3.UP, deg_to_rad(i * 360 / minions.size() + rotation_offset))
+	for i in range(minion_pos.size()):
+		minion_pos[i] = global_position + (Vector3.RIGHT * (MINION_OFFSET + MAX_EXPANSION * EXPANSION_CURVE.sample(expansion_time))).rotated(Vector3.UP, deg_to_rad(i * 360 / minion_pos.size() + rotation_offset))
 	update.emit(minion_pos)
 
 	## Sets Movement Target to be FOLLOW_MIN_DIST from Player. If has no Minions, Follow Twice as far.
-	set_movement_target(player.global_position-(player.global_position-global_position).normalized()*FOLLOW_MIN_DIST*(2 if minions.size() == 0 else 1))
+	set_movement_target(player.global_position-(player.global_position-global_position).normalized()*FOLLOW_MIN_DIST*(2 if minion_pos.size() == 0 else 1))
+
 
 ## Unregisteres Minion from Merger, Reduces Shape to one less Vertex
 func remove_minion(n: int) -> void:
-	if minions.size() == 3:
-		for i in range(minions.size()):
-			(minions[i] as MergerTestEnemy).unmerge()
-		minions.clear()
+	if minion_pos.size() == 3:
+		unmerge.emit()
 		minion_pos.clear()
 		return
-	minions.remove_at(n)
 	minion_pos.remove_at(n)
-	for i in range(minions.size()):
-		(minions[i] as MergerTestEnemy).merge_num_update(i)
+	var new_index = PackedByteArray()
+	var j = 0
+	for i in range(minion_pos.size()+1):
+		if i == j:
+			j -= 1
+		new_index[i] = j
+	reindex.emit(new_index)
 		
 func trigger_death():
-	killed.emit()
+	unmerge.emit()
 	super()

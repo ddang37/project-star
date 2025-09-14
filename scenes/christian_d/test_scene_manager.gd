@@ -1,7 +1,7 @@
 ## Attach to Prototype in COPY_THIS to test mind merger.
 extends Node3D
 
-var enemies: Array[RigidBody3D] = []
+var enemies: Array[Enemy] = []
 var mergers: Array[MindMerger] = []
 
 func _ready() -> void:
@@ -11,18 +11,20 @@ func _ready() -> void:
 	
 func spawn_enemy() -> void:
 	var enemy = load("res://scenes/christian_d/TestEnemy.tscn").instantiate()
-	enemy.player = $PlayerManager/Player
 	enemy.position = Vector3(randi_range(2, 10)*(-1 if randf() > 0.5 else 1), 2, randi_range(2, 10)*(-1 if randf() > 0.5 else 1))
 	add_child(enemy)
 	enemies.append(enemy)
 	
 func spawn_merge() -> void:
-	var merger = load("res://scenes/christian_d/MindMerger.tscn").instantiate() as MindMerger
-	merger.position = Vector3(5, 3, -3)
-	merger.player = $PlayerManager/Player
+	var spawn_position = Vector3(5, 5, -3)
+	enemies.sort_custom(func(a,b): return (a.global_position.distance_to(spawn_position)) < b.global_position.distance_to(spawn_position))
+	var to_merge = enemies.filter(func(a): return (a as MergerTestEnemy)._status_effects.find_key(EntityEffect.EffectID.DEBUG_EFFECT) == null).slice(0, 6)
+	var merger = load("res://scenes/christian_d/MindMerger.tscn").instantiate()
+	merger._setup($Player, to_merge.size())
+	merger.position = spawn_position
+	for i in range(len(to_merge)):
+		(to_merge[i] as Enemy).apply_effect(Merged.new(EntityEffect.EffectID.DEBUG_EFFECT, merger, i))
 	add_child(merger)
-	enemies.sort_custom(func(a,b): return (a.global_position.distance_to(merger.global_position)) < b.global_position.distance_to(merger.global_position))
-	merger.setup(enemies.filter(func(a): return (a as MergerTestEnemy).merged == -1).slice(0, 6))
 	mergers.append(merger as MindMerger)
 	
 func _process(_delta: float) -> void:
@@ -32,11 +34,11 @@ func _process(_delta: float) -> void:
 		var index = randi_range(0, enemies.size()-1)
 		var selected = enemies[index]
 		enemies.remove_at(index)
-		(selected as MergerTestEnemy).kill()
+		(selected as MergerTestEnemy).trigger_death()
 	if Input.is_action_just_pressed("select_char3"):
 		var index = randi_range(0, mergers.size()-1)
 		var selected = mergers[index]
 		mergers.remove_at(index)
-		(selected as MindMerger).kill()
+		(selected as MindMerger).trigger_death()
 	if Input.is_action_just_pressed("special_attack"):
 		spawn_merge()
