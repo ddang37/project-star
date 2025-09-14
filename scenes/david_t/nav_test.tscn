@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://iuute4j4oyys"]
+[gd_scene load_steps=8 format=3 uid="uid://iuute4j4oyys"]
 
-[ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_kbkln"]
-[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://Shaders/prototype.tres" id="2_odfjc"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_odfjc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m1m0"]
 
@@ -25,7 +24,6 @@ size = Vector3(60, 2, 60)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32074, 0)
-script = ExtResource("1_kbkln")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_1m1m0")
