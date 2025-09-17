@@ -43,5 +43,4 @@ func _physics_process(_delta: float) -> void:
 
 func _on_velocity_computed(safe_velocity: Vector3):
 	velocity = safe_velocity * _movement_speed
-	print(name + " " + str(safe_velocity))
 	move_and_slide()

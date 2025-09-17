@@ -28,7 +28,7 @@ var expansion_mult: int = 1
 var player: Player
 
 	
-func _setup(_player: Player, num: int):
+func setup(_player: Player, num: int):
 	player = _player
 	minion_pos.resize(num)
 	
@@ -66,11 +66,13 @@ func remove_minion(n: int) -> void:
 		return
 	minion_pos.remove_at(n)
 	var new_index = PackedByteArray()
+	new_index.resize(minion_pos.size()+1)
 	var j = 0
 	for i in range(minion_pos.size()+1):
-		if i == j:
+		if i == n:
 			j -= 1
 		new_index[i] = j
+		j += 1
 	reindex.emit(new_index)
 		
 func trigger_death():

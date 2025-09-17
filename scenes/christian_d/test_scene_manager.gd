@@ -18,12 +18,12 @@ func spawn_enemy() -> void:
 func spawn_merge() -> void:
 	var spawn_position = Vector3(5, 5, -3)
 	enemies.sort_custom(func(a,b): return (a.global_position.distance_to(spawn_position)) < b.global_position.distance_to(spawn_position))
-	var to_merge = enemies.filter(func(a): return (a as MergerTestEnemy)._status_effects.find_key(EntityEffect.EffectID.DEBUG_EFFECT) == null).slice(0, 6)
+	var to_merge = enemies.filter(func(a): return not (a as MergerTestEnemy)._status_effects.has(EntityEffect.EffectID.MERGED)).slice(0, 6)
 	var merger = load("res://scenes/christian_d/MindMerger.tscn").instantiate()
-	merger._setup($Player, to_merge.size())
+	merger.setup($Player, to_merge.size())
 	merger.position = spawn_position
 	for i in range(len(to_merge)):
-		(to_merge[i] as Enemy).apply_effect(Merged.new(EntityEffect.EffectID.DEBUG_EFFECT, merger, i))
+		(to_merge[i] as Enemy).apply_effect(Merged.new(merger, i))
 	add_child(merger)
 	mergers.append(merger as MindMerger)
 	
