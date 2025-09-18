@@ -3,7 +3,7 @@ class_name Player
 
 var speed = 14
 var target_velocity = Vector3.ZERO
-#@export_range(0.0, 1.0, 0.01) var camera_follow_speed : float = 0.15
+@onready var camera_shake = get_node("../CameraTarget/PitchPivot")
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
