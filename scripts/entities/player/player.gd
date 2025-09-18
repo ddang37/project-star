@@ -6,13 +6,13 @@ enum PlayerState {
 	ATTACKING,
 	CHARGING,
 	CHARGING_SPECIAL,
-	BURSTING
+	BURSTING,
+	SWITCHING
 }
 
 @export_category("Input Thresholds")
-@export var max_attack_time: float = 0.1
+@export var max_click_time: float = 0.1
 @export var min_charge_time: float = 0.5
-@export var special_max_attack_time: float = 0.1
 @export var special_min_charge_time: float = 0.75
 @export_category("Movement Parameters")
 @export var input_smoothing_time: float = 0.1
@@ -31,35 +31,49 @@ func _ready() -> void:
 func _physics_process(delta):
 	# TODO Track player location via GameManager instead
 	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
-	var direction = Vector3.ZERO
-	if Input.is_action_pressed("move_left"):
-		direction.z += 1
-	if Input.is_action_pressed("move_right"):
-		direction.z -= 1
-	if Input.is_action_pressed("move_up"):
-		direction.x -= 1
-	if Input.is_action_pressed("move_down"):
-		direction.x += 1
-	
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
-	direction = direction.rotated(Vector3.UP, deg_to_rad(-45))
+	# Lose movement control mid attack animation or during burst
+	if current_state != PlayerState.ATTACKING and current_state != PlayerState.BURSTING:
+		var direction = Vector3.ZERO
+		if Input.is_action_pressed("move_left"):
+			direction.z += 1
+		if Input.is_action_pressed("move_right"):
+			direction.z -= 1
+		if Input.is_action_pressed("move_up"):
+			direction.x -= 1
+		if Input.is_action_pressed("move_down"):
+			direction.x += 1
 		
-	
-	var new_target_velocity = Vector3.ZERO
-	new_target_velocity.x = direction.x * _movement_speed
-	new_target_velocity.z = direction.z * _movement_speed
-	
-	if new_target_velocity != target_velocity:
-		velocity_smoothing_counter = 0
-	if velocity_smoothing_counter < 1:
-		velocity_smoothing_counter += delta / input_smoothing_time
-	target_velocity = new_target_velocity
-	velocity = velocity.lerp(target_velocity, velocity_smoothing_counter)
+		if direction != Vector3.ZERO:
+			direction = direction.normalized()
+		if current_state == PlayerState.CHARGING or current_state == PlayerState.CHARGING_SPECIAL:
+			direction *= 0.25	
+		direction = direction.rotated(Vector3.UP, deg_to_rad(-45))
+			
+		
+		var new_target_velocity = Vector3.ZERO
+		new_target_velocity = direction * _movement_speed
+		
+		if new_target_velocity != target_velocity:
+			velocity_smoothing_counter = 0
+		if velocity_smoothing_counter < 1:
+			velocity_smoothing_counter += delta / input_smoothing_time
+		target_velocity = new_target_velocity
+		
+		# Dash supercedes charge attacks but not regular attacks (no animation cancelling)
+		if Input.is_action_just_pressed("dodge"):
+			if current_state == PlayerState.IDLE:
+				target_velocity += direction * dash_distance/delta
+			if (current_state == PlayerState.CHARGING or current_state == PlayerState.CHARGING_SPECIAL) and charge_counter > max_click_time:
+				target_velocity += direction * dash_distance/delta
+				current_state = PlayerState.IDLE
+		# On Dodge, ignore smoothing for that frame and the frame after.
+		if target_velocity.length() > _movement_speed or velocity.length() > _movement_speed:
+			velocity = target_velocity
+		else:
+			velocity = velocity.lerp(target_velocity, velocity_smoothing_counter)
 	move_and_slide()
-	if Input.is_action_just_pressed("dodge"):
-		position += direction * dash_distance
 	
+	# Attack processing
 	if Input.is_action_just_pressed("basic_attack"):
 		attack_pressed()
 	if Input.is_action_just_pressed("special_attack"):
@@ -83,13 +97,13 @@ func attack_pressed() -> void:
 		return
 	if current_state == PlayerState.CHARGING and Input.is_action_just_released("basic_attack"):
 		current_state = PlayerState.ATTACKING
-		if charge_counter < max_attack_time:
+		if charge_counter < max_click_time:
 			basic_attack()
 		elif charge_counter > min_charge_time:
 			charged_attack()
 		else:
 			current_state = PlayerState.IDLE
-	
+
 @abstract
 func basic_attack() -> void
 
@@ -104,7 +118,7 @@ func special_pressed() -> void:
 		return
 	if current_state == PlayerState.CHARGING_SPECIAL and Input.is_action_just_released("special_attack"):
 		current_state = PlayerState.ATTACKING
-		if charge_counter < special_max_attack_time:
+		if charge_counter < max_click_time:
 			special_attack()
 		elif charge_counter > special_min_charge_time:
 			charged_special_attack()

@@ -5,6 +5,7 @@ func _physics_process(delta):
 	
 func basic_attack() -> void:
 	print("Attack")
+	await get_tree().create_timer(0.4).timeout
 	current_state = PlayerState.IDLE
 
 func charged_attack() -> void:
