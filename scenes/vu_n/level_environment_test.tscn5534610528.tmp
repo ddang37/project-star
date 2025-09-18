@@ -60,7 +60,12 @@ script = ExtResource("1_a282p")
 [node name="Player" type="CharacterBody3D" parent="PlayerManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32074, 0)
 script = ExtResource("2_bly0l")
-_movement_speed = 15.0
+max_attack_time = null
+min_charge_time = null
+_movement_speed = 30.0
+faction = null
+_hp = null
+_max_hp = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerManager/Player"]
 shape = SubResource("CapsuleShape3D_1m1m0")
