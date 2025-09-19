@@ -98,17 +98,17 @@ func attack_pressed() -> void:
 	if current_state == PlayerState.CHARGING and Input.is_action_just_released("basic_attack"):
 		current_state = PlayerState.ATTACKING
 		if charge_counter < max_click_time:
-			basic_attack()
+			_basic_attack()
 		elif charge_counter > min_charge_time:
-			charged_attack()
+			_charged_attack()
 		else:
 			current_state = PlayerState.IDLE
 
-@abstract
-func basic_attack() -> void
+## Triggers when valid Attack Input
+@abstract func _basic_attack() -> void
 
-@abstract
-func charged_attack() -> void
+## Triggers when valid Charged Attack Input
+@abstract func _charged_attack() -> void
 
 ## Handles Special Input Logic
 func special_pressed() -> void:
@@ -119,23 +119,26 @@ func special_pressed() -> void:
 	if current_state == PlayerState.CHARGING_SPECIAL and Input.is_action_just_released("special_attack"):
 		current_state = PlayerState.ATTACKING
 		if charge_counter < max_click_time:
-			special_attack()
+			_special_attack()
 		elif charge_counter > special_min_charge_time:
-			charged_special_attack()
+			_charged_special_attack()
 		else:
 			current_state = PlayerState.IDLE
 	
-@abstract
-func special_attack() -> void
+## Triggers when valid Special Attack Input
+@abstract func _special_attack() -> void
 
-@abstract
-func charged_special_attack() -> void
+## Triggers when valid Charged Special Attack Input
+@abstract func _charged_special_attack() -> void
 
-@abstract
-func synergy_burst() -> void
+## Calls Synergy Burst Animation TODO: Maybe make synergy bursts centrallized in manager
+func synergy_burst() -> void:
+	current_state = PlayerState.BURSTING
 
-@abstract
-func swap_out() -> void
+## Calls Swap Out Animation
+func swap_out() -> void:
+	current_state = PlayerState.SWITCHING
 
-@abstract
-func swap_in() -> void
+## Calls Swap In Animation
+func swap_in() -> void:
+	current_state = PlayerState.SWITCHING
