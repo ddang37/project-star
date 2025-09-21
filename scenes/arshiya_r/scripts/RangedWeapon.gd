@@ -15,11 +15,9 @@ func _physics_process(delta: float) -> void:
 	position += direction * speed * delta
 
 func _on_timer_timeout() -> void:
-	print("removing bullet")
 	queue_free()
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if (body.name.substr(0, 7) == "Player"):
-		print("collsion detected")
 		#do damage here
 		queue_free()
