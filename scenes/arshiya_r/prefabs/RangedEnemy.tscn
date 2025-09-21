@@ -37,7 +37,7 @@ wait_time = 0.1
 autostart = true
 
 [node name="AggroArea" type="Node3D" parent="."]
-transform = Transform3D(10.096, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="AggroArea"]
 
@@ -45,6 +45,10 @@ transform = Transform3D(10.096, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("CylinderShape3D_vl86s")
 debug_color = Color(1, 0, 0, 1)
 
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="timeout" from="RecalculateTimer" to="." method="_on_recalculate_timer_timeout"]
 [connection signal="body_entered" from="AggroArea/Area3D" to="." method="_on_aggro_area_body_entered"]
 [connection signal="body_exited" from="AggroArea/Area3D" to="." method="_on_aggro_area_body_exited"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

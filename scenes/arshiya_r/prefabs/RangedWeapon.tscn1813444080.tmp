@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://crqwkpb2jn8fq"]
+[gd_scene load_steps=7 format=3 uid="uid://crqwkpb2jn8fq"]
 
 [ext_resource type="Script" uid="uid://c1iptw5vqre6f" path="res://scenes/arshiya_r/scripts/Hitbox.gd" id="1_6v43l"]
 [ext_resource type="Script" uid="uid://dbgqvlk72h7l" path="res://scenes/arshiya_r/scripts/RangedWeapon.gd" id="1_duflq"]
@@ -10,6 +10,8 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pcnfp"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_kfiv0"]
+
 [node name="RangedWeapon" type="Node3D"]
 script = ExtResource("1_duflq")
 
@@ -18,17 +20,21 @@ material_overlay = SubResource("StandardMaterial3D_duflq")
 mesh = SubResource("SphereMesh_kfiv0")
 
 [node name="Hitbox" type="Area3D" parent="."]
-transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)
+collision_mask = 0
+monitoring = false
 script = ExtResource("1_6v43l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("SphereShape3D_pcnfp")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-autostart = true
+[node name="ImpactDetector" type="Area3D" parent="."]
+collision_mask = 0
+monitorable = false
+script = ExtResource("1_6v43l")
 
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ImpactDetector"]
+shape = SubResource("SphereShape3D_kfiv0")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="ImpactDetector" to="." method="_on_impact_detector_body_entered"]
