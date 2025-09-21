@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://deapgeegdxpi"]
 
 [ext_resource type="Script" uid="uid://isfo5fsil5pu" path="res://ZXue/main_gameManager.gd" id="1_0wojm"]
-[ext_resource type="Script" uid="uid://dasumistpp51w" path="res://scripts/player.gd" id="1_qukvj"]
-[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://Shaders/prototype.tres" id="2_im373"]
+[ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="1_qukvj"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_im373"]
 [ext_resource type="PackedScene" uid="uid://m2ppkxqi0ksw" path="res://ZXue/PauseScreen.tscn" id="2_lrf3c"]
 [ext_resource type="PackedScene" uid="uid://bqokxhofhov86" path="res://ZXue/DynaMite/Scenes/Enemy_DynaMite.tscn" id="4_lrf3c"]
 
