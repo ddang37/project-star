@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c74o40qwxv1la" path="res://scripts/utility/player_manager.gd" id="1_is1hp"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="3_ak606"]
-[ext_resource type="PackedScene" uid="uid://cw87q52v3jxf0" path="res://scenes/dev/arshiya_r/prefabs/RangedEnemy.tscn" id="4_wahu7"]
+[ext_resource type="PackedScene" uid="uid://cw87q52v3jxf0" path="res://scenes/sub/RangedEnemy.tscn" id="4_wahu7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
 size = Vector3(60, 2, 60)

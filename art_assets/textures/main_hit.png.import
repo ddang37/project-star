@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cam5cudinpbxl"
-path.s3tc="res://.godot/imported/spark.PNG-6724fe04ed3f1436d570ad228682b48a.s3tc.ctex"
+uid="uid://b1rclnthv4v2c"
+path.s3tc="res://.godot/imported/main_hit.png-0b3925f76645e9d41e7a118876eda3c3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/dev/arshiya_r/textures/spark.PNG"
-dest_files=["res://.godot/imported/spark.PNG-6724fe04ed3f1436d570ad228682b48a.s3tc.ctex"]
+source_file="res://art_assets/textures/main_hit.png"
+dest_files=["res://.godot/imported/main_hit.png-0b3925f76645e9d41e7a118876eda3c3.s3tc.ctex"]
 
 [params]
 

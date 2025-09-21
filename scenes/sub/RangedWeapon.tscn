@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://crqwkpb2jn8fq"]
 
-[ext_resource type="Script" uid="uid://c1iptw5vqre6f" path="res://scenes/dev/arshiya_r/scripts/Hitbox.gd" id="1_6v43l"]
-[ext_resource type="Script" uid="uid://dbgqvlk72h7l" path="res://scenes/dev/arshiya_r/scripts/RangedWeapon.gd" id="1_duflq"]
+[ext_resource type="Script" uid="uid://c1iptw5vqre6f" path="res://scripts/entities/enemies/attacks/hitbox.gd" id="1_6v43l"]
+[ext_resource type="Script" uid="uid://dbgqvlk72h7l" path="res://scripts/entities/enemies/attacks/ranged_weapon.gd" id="1_duflq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_duflq"]
 albedo_color = Color(1, 0, 0, 1)

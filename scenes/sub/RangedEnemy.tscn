@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cw87q52v3jxf0"]
 
-[ext_resource type="Script" uid="uid://r8oki41bfmky" path="res://scenes/dev/arshiya_r/scripts/RangedEnemy.gd" id="1_6kug1"]
+[ext_resource type="Script" uid="uid://r8oki41bfmky" path="res://scripts/entities/enemies/ranged_enemy.gd" id="1_6kug1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utbal"]
 albedo_color = Color(1, 0, 0, 1)

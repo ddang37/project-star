@@ -1,6 +1,6 @@
 class_name RangedEnemy extends Enemy
 
-const Projectile := preload("res://scenes/dev/arshiya_r/prefabs/RangedWeapon.tscn")
+const Projectile := preload("res://scenes/sub/RangedWeapon.tscn")
 @export var speed = 1
 @export var projectile_range = 1;
 @export var target_node: Node3D

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="1_jbkjt"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_m5tuo"]
-[ext_resource type="Shader" uid="uid://ceom5ccl0m02y" path="res://scenes/dev/arshiya_r/shaders/main_hit.tres" id="3_3gad6"]
-[ext_resource type="Script" uid="uid://bjbekw5kfq6a7" path="res://scenes/dev/arshiya_r/scripts/hit_trigger.gd" id="3_m5tuo"]
-[ext_resource type="Texture2D" uid="uid://b1rclnthv4v2c" path="res://scenes/dev/arshiya_r/textures/main_hit.png" id="4_lfmvk"]
-[ext_resource type="Shader" uid="uid://5llgqabmefnw" path="res://scenes/dev/arshiya_r/shaders/spark_effect.tres" id="5_0imff"]
-[ext_resource type="Texture2D" uid="uid://cam5cudinpbxl" path="res://scenes/dev/arshiya_r/textures/spark.PNG" id="6_l030s"]
+[ext_resource type="Shader" uid="uid://ceom5ccl0m02y" path="res://shaders/main_hit.tres" id="3_3gad6"]
+[ext_resource type="Script" uid="uid://bjbekw5kfq6a7" path="res://scripts/entities/enemies/attacks/hit_trigger.gd" id="3_m5tuo"]
+[ext_resource type="Texture2D" uid="uid://b1rclnthv4v2c" path="res://art_assets/textures/main_hit.png" id="4_lfmvk"]
+[ext_resource type="Shader" uid="uid://5llgqabmefnw" path="res://shaders/spark_effect.tres" id="5_0imff"]
+[ext_resource type="Texture2D" uid="uid://cam5cudinpbxl" path="res://art_assets/textures/spark.PNG" id="6_l030s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
 size = Vector3(60, 2, 60)

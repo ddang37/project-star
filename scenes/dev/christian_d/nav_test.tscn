@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dn37q5oyx4awr"]
 
-[ext_resource type="Script" uid="uid://her3wmiccvra" path="res://scenes/dev/christian_d/test_scene_manager.gd" id="1_1vik7"]
+[ext_resource type="Script" uid="uid://her3wmiccvra" path="res://scripts/dev/test_scene_manager.gd" id="1_1vik7"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_3kcbj"]
 [ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="2_trrsi"]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="1_2jf10"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_a3m7d"]
-[ext_resource type="Script" uid="uid://dhw8qducuac4v" path="res://scenes/dev/franklin_s/basic_attack.gd" id="3_hvq8a"]
+[ext_resource type="Script" uid="uid://dhw8qducuac4v" path="res://scripts/entities/enemies/attacks/basic_attack.gd" id="3_hvq8a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
 size = Vector3(60, 2, 60)
