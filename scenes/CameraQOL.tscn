@@ -13,13 +13,13 @@ size = Vector3(60, 2, 60)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1m1m0"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_rid8s"]
-
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ggon3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_05f11"]
 render_priority = 0
 shader = ExtResource("2_ijskw")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rid8s"]
 
 [node name="Prototype" type="Node3D"]
 
@@ -38,25 +38,24 @@ script = ExtResource("1_gv8ye")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_1m1m0")
 
-[node name="CameraTarget" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-top_level = true
-script = ExtResource("3_ijskw")
-
-[node name="PitchPivot" type="Node3D" parent="Player/CameraTarget"]
-transform = Transform3D(-1, -4.37114e-08, 7.57104e-08, 0, 0.866026, 0.5, -8.74228e-08, 0.5, -0.866026, 0, 0, 0)
-script = ExtResource("4_rid8s")
-noise = SubResource("FastNoiseLite_rid8s")
-
-[node name="Camera3D" type="Camera3D" parent="Player/CameraTarget/PitchPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
-current = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CameraTarget"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.32074, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 mesh = SubResource("CapsuleMesh_ggon3")
-skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_05f11")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.996632, 0, 0.0820081, 0.0619636, 0.655057, 0.753034, -0.05372, 0.755579, -0.652851, 0, 22.456, 0)
+
+[node name="CameraTarget" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+top_level = true
+script = ExtResource("3_ijskw")
+
+[node name="PitchPivot" type="Node3D" parent="CameraTarget"]
+transform = Transform3D(-1, -4.37114e-08, 7.57104e-08, 0, 0.866026, 0.5, -8.74228e-08, 0.5, -0.866026, 0, 0, 0)
+script = ExtResource("4_rid8s")
+noise = SubResource("FastNoiseLite_rid8s")
+max_rotation = Vector3(5, 5, 5)
+
+[node name="Camera3D" type="Camera3D" parent="CameraTarget/PitchPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+current = true

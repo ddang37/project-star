@@ -27,8 +27,3 @@ func _physics_process(delta):
 	
 	velocity = target_velocity
 	move_and_slide()
-	
-	if Input.is_action_just_pressed("basic_attack"):
-		$CameraTarget/PitchPivot.shake(1.0)
-	
-	#$CameraTarget.position = lerp($CameraTarget.position, position, camera_follow_speed)

@@ -3,7 +3,6 @@ class_name  CameraTarget
 
 # connect to player with relative path
 @onready var player = get_node("../Player")
-# camera speed in catching up with player
 @export_range(0.0, 1.0, 0.01) var follow_speed: float = 0.1
 
 func _physics_process(delta: float) -> void:
