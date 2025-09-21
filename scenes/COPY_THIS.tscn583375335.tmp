@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7c5p3woxcwaj"]
+[gd_scene load_steps=12 format=3 uid="uid://c7c5p3woxcwaj"]
 
 [ext_resource type="Script" uid="uid://c74o40qwxv1la" path="res://scripts/player_manager.gd" id="1_8jnod"]
 [ext_resource type="Script" uid="uid://cx0wca3wtcorv" path="res://scripts/entities/player/player.gd" id="1_klax2"]
+[ext_resource type="Script" uid="uid://her3wmiccvra" path="res://scenes/christian_d/test_scene_manager.gd" id="1_s3r3p"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_8jnod"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1m1m0"]
@@ -25,6 +26,7 @@ albedo_color = Color(0, 1, 1, 1)
 albedo_color = Color(1, 0, 1, 1)
 
 [node name="Prototype" type="Node3D"]
+script = ExtResource("1_s3r3p")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 
