@@ -55,7 +55,8 @@ script = ExtResource("1_v2ad8")
 
 [node name="Nova" parent="PlayerManager" instance=ExtResource("2_6vw01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0111294, 0)
-_movement_speed = 10.0
+special_cd = 1.0
+_movement_speed = 5.0
 
 [node name="Player2" type="CharacterBody3D" parent="PlayerManager"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32074, 0)
@@ -95,3 +96,4 @@ skeleton = NodePath("../..")
 
 [node name="TestEnemy" parent="." instance=ExtResource("4_s1umf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.163902, 1.1084971, 0)
+_movement_speed = 5.0

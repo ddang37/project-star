@@ -4,39 +4,50 @@ class_name Player extends Entity
 enum PlayerState {
 	IDLE,
 	ATTACKING,
+	SPECIALING,
 	CHARGING,
 	CHARGING_SPECIAL,
 	BURSTING,
 	SWITCHING
 }
 
-enum AttackType {
-	NONE,
-	BASIC,
-	CHARGED,
-	SPECIAL,
-	SPECIAL_CHARGED,
-}
+@onready var ray: RayCast3D = $ForwardRay
 
 @export_category("Input Thresholds")
 @export var max_click_time: float = 0.25
-@export var min_charge_time: float = 0.5
-@export var special_min_charge_time: float = 0.75
+@export var attack_charge_time: float = 0.5
+@export var special_charge_time: float = 0.75
 @export_category("Movement Parameters")
 @export var input_smoothing_time: float = 0.1
 @export var dash_distance: float = 5
+@export_category("Cooldowns")
+@export var special_cd: float = 5
+@export var dash_cd: float = 1
 
+var _delta: float = 0
 var target_velocity = Vector3.ZERO
 var velocity_smoothing_counter: float = 0
 var pos: Vector3
 var current_state: PlayerState = PlayerState.IDLE
 var charge_counter: float = 0
+var special_cd_timer: float = -1
+var dash_cd_timer: float = -1
 
 func _ready() -> void:
 	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
 	current_state = PlayerState.IDLE
+	
+func _tick_timer(delta: float, timer: float):
+	if timer != -1 and timer > 0:
+		timer -= delta
+		if timer <= 0:
+			timer = -1
+	return timer
 
 func _physics_process(delta):
+	_delta = delta
+	special_cd_timer = _tick_timer(delta, special_cd_timer)
+	dash_cd_timer = _tick_timer(delta, dash_cd_timer)
 	# TODO Track player location via GameManager instead
 	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
 	# Lose movement control mid attack animation or during burst
@@ -68,18 +79,16 @@ func _physics_process(delta):
 		target_velocity = new_target_velocity
 		
 		# Dash supercedes charge attacks but not regular attacks (no animation cancelling)
-		if Input.is_action_just_pressed("dodge"):
+		if Input.is_action_just_pressed("dodge") and dash_cd_timer == -1:
 			if current_state == PlayerState.IDLE:
-				target_velocity += direction * dash_distance/delta
+				dash()
+				dash_cd_timer = dash_cd
 			if (current_state == PlayerState.CHARGING or current_state == PlayerState.CHARGING_SPECIAL) and charge_counter > max_click_time:
-				target_velocity += direction * dash_distance/delta
+				dash()
+				dash_cd_timer = dash_cd
 				current_state = PlayerState.IDLE
-		# On Dodge, ignore smoothing for that frame and the frame after.
-		if target_velocity.length() > _movement_speed or velocity.length() > _movement_speed:
-			velocity = target_velocity
-		else:
-			velocity = velocity.lerp(target_velocity, velocity_smoothing_counter)
-	move_and_slide()
+		velocity = velocity.lerp(target_velocity, velocity_smoothing_counter)
+		look_at(global_position + velocity)
 	
 	# Attack processing
 	if Input.is_action_just_pressed("basic_attack"):
@@ -92,11 +101,19 @@ func _physics_process(delta):
 	elif current_state == PlayerState.CHARGING_SPECIAL:
 		special_pressed()
 		charge_counter += delta
+		
+	move_and_slide()
 	
 ## Used for player manager to handle check if Player is in valid state to swap
 func can_swap() -> bool:
 	return current_state == PlayerState.IDLE or current_state == PlayerState.CHARGING or current_state == PlayerState.CHARGING_SPECIAL;
-	
+
+## Dash function, uses raycast to prevent clipping world but ignores entities
+func dash() -> void:
+	ray.force_raycast_update()
+	position = ray.get_collision_point() if ray.is_colliding() \
+			else position + Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * dash_distance
+
 ## Handles Attack Input Logic
 func attack_pressed() -> void:
 	if current_state == PlayerState.IDLE:
@@ -107,7 +124,7 @@ func attack_pressed() -> void:
 		current_state = PlayerState.IDLE
 		if charge_counter < max_click_time:
 			_basic_attack()
-		elif charge_counter > min_charge_time:
+		elif charge_counter > attack_charge_time:
 			_charged_attack()
 
 ## Triggers when valid Attack Input
@@ -118,7 +135,7 @@ func attack_pressed() -> void:
 
 ## Handles Special Input Logic
 func special_pressed() -> void:
-	if current_state == PlayerState.IDLE:
+	if current_state == PlayerState.IDLE and special_cd_timer == -1:
 		current_state = PlayerState.CHARGING_SPECIAL
 		charge_counter = 0
 		return
@@ -126,7 +143,7 @@ func special_pressed() -> void:
 		current_state = PlayerState.IDLE
 		if charge_counter < max_click_time:
 			_special_attack()
-		elif charge_counter > special_min_charge_time:
+		elif charge_counter > special_charge_time:
 			_charged_special_attack()
 	
 ## Triggers when valid Special Attack Input
