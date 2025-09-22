@@ -10,8 +10,16 @@ enum PlayerState {
 	SWITCHING
 }
 
+enum AttackType {
+	NONE,
+	BASIC,
+	CHARGED,
+	SPECIAL,
+	SPECIAL_CHARGED,
+}
+
 @export_category("Input Thresholds")
-@export var max_click_time: float = 0.1
+@export var max_click_time: float = 0.25
 @export var min_charge_time: float = 0.5
 @export var special_min_charge_time: float = 0.75
 @export_category("Movement Parameters")
@@ -96,13 +104,11 @@ func attack_pressed() -> void:
 		charge_counter = 0
 		return
 	if current_state == PlayerState.CHARGING and Input.is_action_just_released("basic_attack"):
-		current_state = PlayerState.ATTACKING
+		current_state = PlayerState.IDLE
 		if charge_counter < max_click_time:
 			_basic_attack()
 		elif charge_counter > min_charge_time:
 			_charged_attack()
-		else:
-			current_state = PlayerState.IDLE
 
 ## Triggers when valid Attack Input
 @abstract func _basic_attack() -> void
@@ -117,13 +123,11 @@ func special_pressed() -> void:
 		charge_counter = 0
 		return
 	if current_state == PlayerState.CHARGING_SPECIAL and Input.is_action_just_released("special_attack"):
-		current_state = PlayerState.ATTACKING
+		current_state = PlayerState.IDLE
 		if charge_counter < max_click_time:
 			_special_attack()
 		elif charge_counter > special_min_charge_time:
 			_charged_special_attack()
-		else:
-			current_state = PlayerState.IDLE
 	
 ## Triggers when valid Special Attack Input
 @abstract func _special_attack() -> void
