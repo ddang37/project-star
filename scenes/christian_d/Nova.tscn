@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://cncupvhm31475"]
+
+[ext_resource type="Script" uid="uid://om4qdtr1cye0" path="res://scripts/entities/player/nova.gd" id="1_p5oh7"]
+[ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_xdlwu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_21ndv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7ch2h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnm4i"]
+render_priority = 0
+shader = ExtResource("2_xdlwu")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xdlwu"]
+height = 1.0
+radius = 3.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_21ndv"]
+size = Vector3(4, 0.1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7ch2h"]
+size = Vector3(10, 0.1, 1)
+
+[node name="Nova" type="CharacterBody3D"]
+collision_layer = 6
+collision_mask = 3
+script = ExtResource("1_p5oh7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_21ndv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_7ch2h")
+surface_material_override/0 = SubResource("ShaderMaterial_lnm4i")
+
+[node name="Hitboxes" type="Node3D" parent="."]
+
+[node name="Sweep" type="Area3D" parent="Hitboxes"]
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Sweep"]
+shape = SubResource("CylinderShape3D_xdlwu")
+
+[node name="Hit" type="Area3D" parent="Hitboxes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Hit"]
+shape = SubResource("BoxShape3D_21ndv")
+
+[node name="Dash" type="Area3D" parent="Hitboxes"]
+collision_layer = 0
+collision_mask = 8
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Dash"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+shape = SubResource("BoxShape3D_7ch2h")
