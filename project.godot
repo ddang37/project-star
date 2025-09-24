@@ -17,10 +17,15 @@ config/icon="uid://6yho8q064sn0"
 [autoload]
 
 AudioManager="res://scripts/audio/AudioManager.gd"
+FmodManager="*res://addons/fmod/FmodManager.gd"
 
 [dotnet]
 
 project/assembly_name="Project Star"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 
 [global_group]
 
