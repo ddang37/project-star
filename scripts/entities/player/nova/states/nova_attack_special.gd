@@ -1,0 +1,29 @@
+extends NovaState
+
+func enter(_previous_state_path: String, _data := {}) -> void:
+	nova.dash_box.monitoring = true
+	get_tree().physics_frame.connect(do_damage)
+	player.dash()
+	
+
+func update(_delta: float) -> void:
+	pass
+
+func physics_update(_delta: float) -> void:
+	player.move_and_slide()
+		
+func do_damage() -> void:
+	for node in nova.dash_box.get_overlapping_bodies():
+		if not node is Enemy:
+			continue
+		(node as Enemy).try_damage(nova.special_dmg)
+	get_tree().physics_frame.disconnect(do_damage)
+	nova.special_dash.emit(false)
+	
+		
+func end() -> void:
+	finished.emit(MOVING if player.velocity else IDLE)
+		
+func exit() -> void:
+	nova.dash_box.monitoring = false
+	get_tree().create_timer(player.special_cd).timeout.connect(func(): player.has_special = true)
