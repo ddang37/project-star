@@ -16,7 +16,7 @@ func _ready():
 	# testing
 	_on_start()
 	
-func _process(delta: float):	
+func _process(_delta: float):
 	if current_wave >= 0 and current_wave < waves.size():
 		# active
 		if not waves[current_wave].is_active():
@@ -25,7 +25,7 @@ func _process(delta: float):
 	
 	if Input.is_action_just_pressed("test_wave"):
 		get_tree().call_group("Enemies", "queue_free")
-	
+
 # signal received from GameManager
 func _on_start():
 	current_wave = 0
