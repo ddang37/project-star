@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://unoge85vmvrr" path="res://VFX/MiteExplosionVFX.gd" id="1_cqvfm"]
 [ext_resource type="Shader" uid="uid://cnufkqrd0wvae" path="res://VFX/MiteExplosionCloud.gdshader" id="2_h470l"]
-[ext_resource type="Texture2D" uid="uid://bibdyfd6gy44q" path="res://VFX/Kenny Particle Pack/flame_06.png" id="3_kb7n7"]
+[ext_resource type="Texture2D" uid="uid://n8ioie3uso2u" path="res://VFX/Kenny Particle Pack/muzzle_01.png" id="3_kb7n7"]
 
 [sub_resource type="Gradient" id="Gradient_h470l"]
 
@@ -12,8 +12,8 @@ fractal_type = 2
 fractal_octaves = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1l5y8"]
-color_ramp = SubResource("Gradient_h470l")
 noise = SubResource("FastNoiseLite_kb7n7")
+color_ramp = SubResource("Gradient_h470l")
 
 [sub_resource type="Gradient" id="Gradient_1l5y8"]
 offsets = PackedFloat32Array(0, 0.00793651, 1)
@@ -34,8 +34,8 @@ fractal_type = 2
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xi3l8"]
 width = 256
 height = 256
-color_ramp = SubResource("Gradient_kb7n7")
 noise = SubResource("FastNoiseLite_1l5y8")
+color_ramp = SubResource("Gradient_kb7n7")
 
 [sub_resource type="Gradient" id="Gradient_xi3l8"]
 colors = PackedColorArray(0, 0, 0, 1, 0.435192, 0.435192, 0.435192, 1)
@@ -43,8 +43,8 @@ colors = PackedColorArray(0, 0, 0, 1, 0.435192, 0.435192, 0.435192, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ivgjv"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5f2gs"]
-color_ramp = SubResource("Gradient_xi3l8")
 noise = SubResource("FastNoiseLite_ivgjv")
+color_ramp = SubResource("Gradient_xi3l8")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kb7n7"]
 render_priority = 0
@@ -135,7 +135,7 @@ texture_mode = 1
 curve = SubResource("Curve_h470l")
 
 [sub_resource type="Gradient" id="Gradient_5f2gs"]
-offsets = PackedFloat32Array(0, 0.381818)
+offsets = PackedFloat32Array(0, 0.55719554)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_j6esm"]
 gradient = SubResource("Gradient_5f2gs")
@@ -187,11 +187,11 @@ fractal_type = 2
 fractal_octaves = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_j6esm"]
-color_ramp = SubResource("Gradient_ivgjv")
 noise = SubResource("FastNoiseLite_5f2gs")
+color_ramp = SubResource("Gradient_ivgjv")
 
 [sub_resource type="Gradient" id="Gradient_wkhwf"]
-offsets = PackedFloat32Array(0, 0.00793651, 1)
+offsets = PackedFloat32Array(0, 0.007936537, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.0873016, 0.0873016, 0.0873016, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_bbejc"]
@@ -209,8 +209,8 @@ fractal_type = 2
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xqa25"]
 width = 256
 height = 256
-color_ramp = SubResource("Gradient_1066w")
 noise = SubResource("FastNoiseLite_alm27")
+color_ramp = SubResource("Gradient_1066w")
 
 [sub_resource type="Gradient" id="Gradient_bify5"]
 colors = PackedColorArray(0, 0, 0, 1, 0.435192, 0.435192, 0.435192, 1)
@@ -218,8 +218,8 @@ colors = PackedColorArray(0, 0, 0, 1, 0.435192, 0.435192, 0.435192, 1)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_s6kpo"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1fl1x"]
-color_ramp = SubResource("Gradient_bify5")
 noise = SubResource("FastNoiseLite_s6kpo")
+color_ramp = SubResource("Gradient_bify5")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uy6ch"]
 render_priority = 0
@@ -320,7 +320,7 @@ orientation = 2
 
 [node name="DynaMiteExplode" type="Node3D" node_paths=PackedStringArray("particles")]
 script = ExtResource("1_cqvfm")
-particles = [NodePath("GPUParticles3D2"), NodePath("GPUParticles3D"), NodePath("GPUParticles3D"), NodePath("GPUParticles3D2"), NodePath("GPUParticles3D4")]
+particles = [NodePath("GPUParticles3D2"), NodePath("GPUParticles3D"), NodePath("GPUParticles3D4"), NodePath("GPUParticles3D2"), NodePath("GPUParticles3D"), NodePath("GPUParticles3D4")]
 
 [node name="FuseTimer" type="Timer" parent="."]
 one_shot = true
