@@ -10,7 +10,9 @@ func _ready() -> void:
 func _on_body_entered(body: CharacterBody3D) -> void:
 	if (player == body) : #in case switching player
 		# print("that's the player")
-		#reload the current scene, need changes if want to go to menu scene
-		get_tree().reload_current_scene() 
+		# get_tree().reload_current_scene() 
+		# load the loading scene
+		get_tree().change_scene_to_file("res://scenes/dev/christian_d/LoadingScreen.tscn")
+		
 	
 	
