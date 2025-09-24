@@ -29,7 +29,7 @@ func start():
 	active = true
 	for i in range(0, enemies.size()):
 		var n = enemies[i]
-		var area = spawn_areas[randi_range(0, spawn_areas.size() - 1)] if not setSpawnAreas else spawnAreaIndices[i]
+		var area = spawn_areas[randi_range(0, spawn_areas.size() - 1)] if not setSpawnAreas else spawn_areas[spawnAreaIndices[i]]
 		
 		var instance = n.instantiate()
 		add_child(instance)
