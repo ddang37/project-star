@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx6y3af7ybavb"]
+[gd_scene load_steps=7 format=3 uid="uid://bx6y3af7ybavb"]
 
 [ext_resource type="PackedScene" uid="uid://b56s3jvwgpp1u" path="res://scenes/final/level_environment_test.tscn" id="1_02qk7"]
+[ext_resource type="Script" uid="uid://coxw7lqgofhhx" path="res://scenes/dev/kj_k/wave_test.gd" id="2_abj5j"]
 [ext_resource type="Script" uid="uid://cs72ukacrgd4g" path="res://scripts/utility/wave_manager.gd" id="2_qklsu"]
 [ext_resource type="Script" uid="uid://dr7x5nckg7bcr" path="res://scripts/utility/wave.gd" id="3_fs8cp"]
 [ext_resource type="PackedScene" uid="uid://c1ujvuwjyhhn" path="res://scenes/tool/spawn_area.tscn" id="4_m3a5u"]
 [ext_resource type="PackedScene" uid="uid://cy13cantipmem" path="res://scenes/sub/TestEnemy.tscn" id="5_jrnv7"]
 
 [node name="Prototype" instance=ExtResource("1_02qk7")]
+script = ExtResource("2_abj5j")
 
 [node name="WaveManager" type="Node3D" parent="." index="4"]
 script = ExtResource("2_qklsu")
