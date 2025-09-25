@@ -29,26 +29,26 @@ func _ready() -> void:
 	super()
 	state_changed.connect(func(_state):
 		match (_state):
-			"Idle":
+			PlayerState.IDLE:
 				idle.emit()
-			"Moving":
+			PlayerState.MOVING:
 				moving.emit()
-			"Charging":
+			PlayerState.CHARGING:
 				charging.emit()
-			"Attacking":
+			PlayerState.ATTACKING:
 				attacking.emit()
-			"AttackingCharged":
+			PlayerState.ATTACKING_CHARGED:
 				attacking_charged.emit()
-			"ChargingSpecial":
+			PlayerState.CHARGING_SPECIAL:
 				charging_special.emit()
-			"AttackingSpecial":
+			PlayerState.ATTACKING_SPECIAL:
 				attacking_special.emit()
-			"AttackingChargedSpecial":
+			PlayerState.ATTACKING_CHARGED_SPECIAL:
 				attacking_charged_special.emit()
-			"Bursting":
+			PlayerState.BURSTING:
 				bursting.emit()
-			"SwapIn":
+			PlayerState.SWAP_IN:
 				swap_in.emit()
-			"SwapOut":
+			PlayerState.SWAP_OUT:
 				swap_out.emit()
 		)
