@@ -14,7 +14,7 @@ func _ready():
 	waves = children.filter(is_wave)
 	
 	# testing
-	_on_start()
+	#_on_start()
 	
 func _process(_delta: float):
 	if current_wave >= 0 and current_wave < waves.size():
