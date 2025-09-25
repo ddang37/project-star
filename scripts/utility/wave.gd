@@ -26,6 +26,9 @@ func _ready():
 	ended.connect(get_parent()._on_wave_end)
 
 func start():
+	assert(not setSpawnAreas || enemies.size() == spawnAreaIndices.size(), "ERROR: Each enemy must have a set spawn area! The Enemies list and Spawn Area Indices list must have the same length.")
+	assert(not setSpawnAreas || spawnAreaIndices.all(valid_area_ind), "ERROR: Spawn Area Indices must be a valid index of the Spawn Areas list!")
+	
 	active = true
 	for i in range(0, enemies.size()):
 		var n = enemies[i]
@@ -53,4 +56,6 @@ func check():
 
 func is_active():
 	return active
-		
+	
+func valid_area_ind(x: int):
+	return x >= 0 and x < spawn_areas.size()
