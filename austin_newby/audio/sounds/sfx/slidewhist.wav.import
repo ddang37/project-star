@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c1dhrochu1n1n"
-path="res://.godot/imported/slidewhist.wav-94b7e6052e57f05a06aae22f47c81584.sample"
+path="res://.godot/imported/slidewhist.wav-9d5646863a2308454faa5a528d87f807.sample"
 
 [deps]
 
-source_file="res://austin_newby/sounds/sfx/slidewhist.wav"
-dest_files=["res://.godot/imported/slidewhist.wav-94b7e6052e57f05a06aae22f47c81584.sample"]
+source_file="res://austin_newby/audio/sounds/sfx/slidewhist.wav"
+dest_files=["res://.godot/imported/slidewhist.wav-9d5646863a2308454faa5a528d87f807.sample"]
 
 [params]
 

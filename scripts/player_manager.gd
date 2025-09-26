@@ -2,6 +2,9 @@ extends Node3D
 
 var current_char: CharacterBody3D
 
+func _init() -> void:
+	GameManager.player_manager = self
+
 func _ready() -> void:
 	# TODO: Should load or somehow maintain the character's selected char throughout scenes
 	# e.g. if the player leaves scene1 and enters scene2, they should have the same selected character
