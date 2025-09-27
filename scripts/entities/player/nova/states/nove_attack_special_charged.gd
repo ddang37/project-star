@@ -26,8 +26,8 @@ func run_special_dash(first: bool):
 		await get_tree().create_timer(nova.release_pause).timeout
 		lock_rotation = true
 	nova.special_dash.emit(charges > 1)
+	nova.can_dash = true
 	player.dash(nova.special_dash_dist)
-	player.can_dash = true
 	do_damage()
 	charges -= 1
 	run_special_dash(false)

@@ -11,7 +11,8 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 		combo_timer = null
 	box = nova.slash_box if combo_counter in [0,1] else nova.poke_box if combo_counter in [2,3] else nova.sweep_box # Select hitbox based on combo
 	box.monitoring = true
-	player.velocity *= 0.25 * player._movement_speed / player.velocity.length()
+	if player.velocity:
+		player.velocity *= 0.25 * player._movement_speed / player.velocity.length()
 		
 	
 

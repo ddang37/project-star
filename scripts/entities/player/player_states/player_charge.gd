@@ -15,7 +15,7 @@ func update(_delta: float) -> void:
 func physics_update(delta: float) -> void:
 	var direction = Input.get_vector("move_up", "move_down", "move_right", "move_left")
 	
-	direction = Vector3(direction.x, 0, direction.y)
+	direction = Vector3(direction.x, 0, direction.y)	
 	direction = direction.normalized()
 	direction = direction.rotated(Vector3.UP, deg_to_rad(-45))
 	direction = direction * player._movement_speed * \
