@@ -6,9 +6,9 @@ class_name Player extends Entity
 @export_category("Input Thresholds")
 @export var max_click_time: float = 0.25
 @export var attack_charge_time: float = 0.5
-@export var special_charge_time: float = 0.75
+@export var special_charge_time: float = 0.5
 @export_category("Movement Parameters")
-@export var input_smoothing_time: float = 0.1
+@export var input_smoothing_speed: float = 8
 @export var dash_distance: float = 5
 @export_category("Cooldowns")
 @export var special_cd: float = 5
@@ -16,6 +16,8 @@ class_name Player extends Entity
 
 var can_dash := true
 var has_special := true
+
+var target_velocity := Vector3.ZERO
 
 func _ready() -> void:
 	get_tree().call_group("Enemies", "PlayerPositionUpd", global_transform.origin)
@@ -28,6 +30,20 @@ func _physics_process(_delta):
 ## Used for player manager to handle check if Player is in valid state to swap
 func can_swap() -> bool:
 	return ($StateMachine.state as State).name in ["Idle", "Moving"];
+	
+func move(delta: float, speed_scale := 1.0) -> void:
+	var direction := Input.get_vector("move_up", "move_down", "move_right", "move_left")
+	
+	direction = direction.rotated(deg_to_rad(45))
+	direction = direction * _movement_speed * speed_scale
+	
+	target_velocity.x = direction.x
+	target_velocity.z = direction.y
+	
+	velocity = target_velocity.lerp(velocity, clamp(pow(0.1, input_smoothing_speed * delta), 0, 1))
+	if velocity:
+		look_at(global_position + velocity)
+	move_and_slide()
 
 ## Dash function, uses raycast to prevent clipping world but ignores entities
 func dash(dist := dash_distance) -> void:

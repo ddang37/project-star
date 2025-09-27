@@ -1,15 +1,11 @@
 extends NovaState
 
-var old_direction := Vector3.ZERO
-var target_direction := Vector3.ZERO
-var look_smoothing_counter: float = 0
 var charges: int = 0
 var lock_rotation := true
 
 
 func enter(_previous_state_path: String, data := {}) -> void:
 	nova.dash_box.monitoring = true
-	old_direction = Vector3.FORWARD.rotated(Vector3.UP, player.rotation.y)
 	lock_rotation = true
 	charges = mini(data.get("charge_time", 1)/nova.special_charge_time, nova.max_charges)
 	run_special_dash(true)
@@ -37,20 +33,17 @@ func update(_delta: float) -> void:
 	pass
 
 func physics_update(delta: float) -> void:
-	var direction = Input.get_vector("move_up", "move_down", "move_right", "move_left")
+	var direction := Input.get_vector("move_up", "move_down", "move_right", "move_left")
 	
-	direction = Vector3(direction.x, 0, direction.y)
-	direction = direction.normalized()
-	direction = direction.rotated(Vector3.UP, deg_to_rad(-45))
+	direction = direction.rotated(deg_to_rad(45))
 	
-	if direction != target_direction:
-		look_smoothing_counter = 0
-		old_direction = Vector3.FORWARD.rotated(Vector3.UP, player.rotation.y)
-	if look_smoothing_counter < 1:
-		look_smoothing_counter += delta / player.input_smoothing_time
-	target_direction = direction
-		
-	player.look_at(player.global_position + old_direction.lerp(target_direction, clamp(look_smoothing_counter, 0, 1)))
+	player.target_velocity.x = direction.x
+	player.target_velocity.z = direction.y
+	
+	player.look_at(player.global_position + 
+			player.target_velocity.lerp(
+				Vector3.FORWARD.rotated(Vector3.UP, player.rotation.y),
+				clamp(pow(0.1, 2 * player.input_smoothing_speed * delta), 0, 1)))
 
 		
 func do_damage() -> void:

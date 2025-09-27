@@ -36,6 +36,8 @@ Animation Signals:
 
 ## Signal Binding Mostly
 func _ready() -> void:
+	$ForwardRay.target_position = Vector3.FORWARD * max(special_dash_dist, dash_distance)
+	
 	special_dash.connect(anim.special_dash)
 	
 	state_machine.attacking.connect(anim.attack)
