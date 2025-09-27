@@ -3,7 +3,7 @@ extends NovaState
 func enter(_previous_state_path: String, _data := {}) -> void:
 	nova.dash_box.monitoring = true
 	get_tree().physics_frame.connect(do_damage)
-	player.dash()
+	player.dash(nova.special_dash_dist)
 	
 
 func update(_delta: float) -> void:
@@ -19,6 +19,7 @@ func do_damage() -> void:
 		(node as Enemy).try_damage(nova.special_dmg)
 	get_tree().physics_frame.disconnect(do_damage)
 	nova.special_dash.emit(false)
+	end()
 	
 		
 func end() -> void:

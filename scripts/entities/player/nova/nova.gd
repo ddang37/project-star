@@ -18,6 +18,7 @@ signal special_dash(chain: bool)
 @export_category("Special")
 @export var max_charges: int = 3
 @export var release_pause: float = 0.5
+@export var special_dash_dist: float = 10
 
 
 # Collision Map: 1-World, 2-Hitboxes, 3-PlayerHurt, 4-EnemyHurt

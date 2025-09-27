@@ -12,13 +12,10 @@ func attack() -> void:
 	attack_done.emit()
 	
 func attack_charged() -> void:
-	print("here")
 	for i in range(3):
-		print(i)
 		await get_tree().create_timer(0.2).timeout
 		attack_charged_hit.emit()
 	await get_tree().create_timer(0.2).timeout
-	print("here2")
 	attack_charged_done.emit()
 	
 func special_dash(chain: bool) -> void:
