@@ -1,13 +1,17 @@
 extends NovaState
 
+
+signal special_dash(chain: bool)
+
 var charges: int = 0
 var lock_rotation := true
 
 
 func enter(_previous_state_path: String, data := {}) -> void:
+	entered.emit(name, _previous_state_path)
+	charges = data.get("charges", 1)
 	nova.dash_box.monitoring = true
 	lock_rotation = true
-	charges = mini(data.get("charge_time", 1)/nova.special_charge_time, nova.max_charges)
 	run_special_dash(true)
 
 	
@@ -21,7 +25,7 @@ func run_special_dash(first: bool):
 		lock_rotation = false
 		await get_tree().create_timer(nova.release_pause).timeout
 		lock_rotation = true
-	nova.special_dash.emit(charges > 1)
+	special_dash.emit(charges > 1)
 	nova.can_dash = true
 	player.dash(nova.special_dash_dist)
 	do_damage()

@@ -23,9 +23,3 @@ func _ready() -> void:
 	await owner.ready
 	player = owner as Player
 	assert(player != null, "The PlayerState state node must only be used with Player.")
-	
-func trigger_swap_out() -> void:
-	emit_signal(SWAP_OUT)
-	
-func trigger_swap_in() -> void:
-	emit_signal(SWAP_IN)

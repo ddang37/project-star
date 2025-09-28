@@ -1,6 +1,7 @@
 extends NovaState
 
 func enter(_previous_state_path: String, _data := {}) -> void:
+	entered.emit(name, _previous_state_path)
 	nova.sweep_box.monitoring = true
 	
 

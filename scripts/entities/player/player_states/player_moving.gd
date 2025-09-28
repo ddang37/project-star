@@ -1,9 +1,8 @@
 extends PlayerState
-
-
-func enter(_previous_state_path: String, _data := {}) -> void:
-	pass
 	
+
+func enter(_prev_state: String, _data := {}):
+	entered.emit(name, _prev_state)
 
 func update(_delta: float) -> void:
 	pass

@@ -1,6 +1,8 @@
 extends PlayerState
 
+
 func enter(_previous_state_path: String, _data := {}) -> void:
+	entered.emit(name, _previous_state_path)
 	player.velocity = Vector3.ZERO
 
 func update(_delta: float) -> void:

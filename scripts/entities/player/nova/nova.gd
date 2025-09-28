@@ -1,7 +1,5 @@
 class_name Nova extends Player
 
-signal special_dash(chain: bool)
-
 @onready var slash_box: Area3D = $Hitboxes/Slash
 @onready var sweep_box: Area3D = $Hitboxes/Sweep
 @onready var poke_box: Area3D = $Hitboxes/Poke
@@ -15,8 +13,7 @@ signal special_dash(chain: bool)
 @export var combo_reset_time: float = 1
 @export var charged_attack_dmg: int = 10
 @export var special_dmg: int = 25
-@export_category("Special")
-@export var max_charges: int = 3
+@export_category("Nova Special")
 @export var release_pause: float = 0.5
 @export var special_dash_dist: float = 10
 
@@ -37,13 +34,3 @@ Animation Signals:
 ## Signal Binding Mostly
 func _ready() -> void:
 	$ForwardRay.target_position = Vector3.FORWARD * max(special_dash_dist, dash_distance)
-	
-	special_dash.connect(anim.special_dash)
-	
-	state_machine.attacking.connect(anim.attack)
-	anim.attack_hit.connect(state_machine.get_node(PlayerState.ATTACKING).do_damage)
-	anim.attack_done.connect(state_machine.get_node(PlayerState.ATTACKING).end)
-	
-	state_machine.attacking_charged.connect(anim.attack_charged)
-	anim.attack_charged_hit.connect(state_machine.get_node(PlayerState.ATTACKING_CHARGED).do_damage)
-	anim.attack_charged_done.connect(state_machine.get_node(PlayerState.ATTACKING_CHARGED).end)

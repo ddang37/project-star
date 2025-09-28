@@ -9,6 +9,7 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	if combo_timer != null and combo_timer.time_left > 0:
 		combo_timer.timeout.disconnect(reset_combo)
 		combo_timer = null
+	entered.emit(name, _previous_state_path, {"combo": combo_counter})
 	box = nova.slash_box if combo_counter in [0,1] else nova.poke_box if combo_counter in [2,3] else nova.sweep_box # Select hitbox based on combo
 	box.monitoring = true
 	if player.velocity:

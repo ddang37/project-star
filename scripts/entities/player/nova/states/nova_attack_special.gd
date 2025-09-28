@@ -1,6 +1,9 @@
 extends NovaState
 
+signal special_dash(chain: bool)
+
 func enter(_previous_state_path: String, _data := {}) -> void:
+	entered.emit(name, _previous_state_path)
 	nova.dash_box.monitoring = true
 	nova.can_dash = true
 	get_tree().physics_frame.connect(do_damage)
@@ -19,7 +22,7 @@ func do_damage() -> void:
 			continue
 		(node as Enemy).try_damage(nova.special_dmg)
 	get_tree().physics_frame.disconnect(do_damage)
-	nova.special_dash.emit(false)
+	special_dash.emit(false)
 	end()
 	
 		

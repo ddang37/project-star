@@ -1,6 +1,7 @@
 class_name StateMachine extends Node
 
-signal state_changed(state: String)
+signal state_entered(state: String)
+signal state_exited(state: String)
 
 @export var initial_state: State = null
 
@@ -30,7 +31,9 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
 		return
 	var previous_state_path := state.name
+	state_exited.emit(state.name)
 	state.exit()
+	#print(state.name + " -> " + target_state_path)
 	state = get_node(target_state_path)
-	state_changed.emit(state.name)
+	state_entered.emit(state.name)
 	state.enter(previous_state_path, data)
