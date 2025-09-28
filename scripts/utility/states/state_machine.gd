@@ -26,6 +26,7 @@ func _physics_process(delta: float) -> void:
 	state.physics_update(delta)
 
 
+## Moves between states. Calls emits exit and enter signals before states execute their functions.
 func _transition_to_next_state(target_state_path: String, data: Dictionary = {}) -> void:
 	if not has_node(target_state_path):
 		printerr(owner.name + ": Trying to transition to state " + target_state_path + " but it does not exist.")
@@ -33,7 +34,6 @@ func _transition_to_next_state(target_state_path: String, data: Dictionary = {})
 	var previous_state_path := state.name
 	state_exited.emit(state.name)
 	state.exit()
-	#print(state.name + " -> " + target_state_path)
 	state = get_node(target_state_path)
 	state_entered.emit(state.name)
 	state.enter(previous_state_path, data)

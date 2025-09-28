@@ -12,7 +12,7 @@ func update(_delta: float) -> void
 @abstract
 func physics_update(_delta: float) -> void
 
-## Called on state enter. Make sure to call entered.
+## Called on state enter. Make sure to emit entered.
 @abstract
 func enter(_prev_state: String, _data := {}) -> void
 

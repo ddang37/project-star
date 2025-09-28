@@ -19,6 +19,7 @@ const VALID_STATES := [IDLE, MOVING, CHARGING, ATTACKING, ATTACKING_CHARGED, CHA
 var player: Player
 
 
+## Saves instance of player as variable for all states.
 func _ready() -> void:
 	await owner.ready
 	player = owner as Player

@@ -18,17 +18,10 @@ class_name Nova extends Player
 @export var special_dash_dist: float = 10
 
 
-# Collision Map: 1-World, 2-Hitboxes, 3-PlayerHurt, 4-EnemyHurt
 
 '''
-This class mostly holds special configuration Nova,
-and will eventually handle signal binding between states and animation/VFX.
-
-Signals:
-	special_dash - Bind to animation/vfx method, it called when player dashes for special.
-	
-Animation Signals:
-	nova_attack, nova_attack_charged both need to bind methods to animation signals
+This class mostly holds configuration for Nova.
+It may eventually hold some signal binding or wtv.
 '''
 
 ## Signal Binding Mostly
