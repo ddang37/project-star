@@ -40,7 +40,12 @@ func process(delta: float) -> bool:
 	if _phase == Phase.PULLING:
 		var to_anchor := pull_anchor - _entity.global_position
 		var dist := to_anchor.length()
-
+		
+		if dist >= max_pull_distance:
+			stop()
+			queue_free()
+			return false
+			
 		if dist > stun_trigger_distance and dist < max_pull_distance:
 			_entity.global_position += to_anchor.normalized() * pull_strength * delta
 			if freeze_velocity_during_pull and "velocity" in _entity:
