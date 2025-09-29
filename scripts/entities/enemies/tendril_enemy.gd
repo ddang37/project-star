@@ -20,6 +20,7 @@ func _ready() -> void:
 	nav.velocity_computed.connect(Callable(_on_velocity_computed))
 	cooldown.wait_time = grab_cooldown_sec
 	cooldown.one_shot = true
+
 	aggro_area.body_entered.connect(_on_aggro_area_body_entered)
 	aggro_area.body_exited.connect(_on_aggro_area_body_exited)
 
@@ -30,16 +31,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super._process(delta)
 
-	if target_node == null:
-		_auto_find_player()
-
 	if target_node:
 		for child in target_node.get_children():
 			if child is GrabbedEffect:
 				(child as GrabbedEffect).pull_anchor = global_position
 				break
 
-	if target_node:
 		set_movement_target(target_node.global_position)
 		_try_grab(target_node)
 
@@ -58,37 +55,6 @@ func _physics_process(delta: float) -> void:
 		velocity = dir * _movement_speed
 		move_and_slide()
 
-func _auto_find_player() -> void:
-	var candidates: Array = get_tree().get_nodes_in_group("player")
-	if candidates.is_empty():
-		var root := get_tree().current_scene
-		if root:
-			var stack := [root]
-			while not stack.is_empty():
-				var n: Node = stack.pop_back()
-				if n.name.substr(0, 6).to_lower() == "player" and n is Node3D:
-					candidates.append(n)
-				for c in n.get_children():
-					stack.append(c)
-	if candidates.is_empty():
-		return
-
-	var best: Node3D = null
-	var best_d := INF
-	var radius := 9999.0
-	var cs := aggro_area.get_node_or_null("CollisionShape3D")
-	if cs and cs.shape is SphereShape3D:
-		radius = (cs.shape as SphereShape3D).radius
-
-	for c in candidates:
-		if c is Node3D:
-			var d := global_position.distance_to(c.global_position)
-			if d < best_d and d <= radius:
-				best_d = d
-				best = c
-	if best:
-		target_node = best
-
 func _try_grab(target: Node3D) -> void:
 	if cooldown.time_left > 0.0:
 		return
@@ -100,10 +66,8 @@ func _try_grab(target: Node3D) -> void:
 		return
 
 	for child in target.get_children():
-		if child is EntityEffect:
-			var eff := child as EntityEffect
-			if eff.id == EntityEffect.EffectID.GRABBED:
-				return
+		if child is EntityEffect and (child as EntityEffect).id == EntityEffect.EffectID.GRABBED:
+			return
 
 	var effect := GrabbedEffect.new()
 	effect.pull_strength = pull_strength
@@ -120,7 +84,7 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	move_and_slide()
 
 func _on_aggro_area_body_entered(body: Node3D) -> void:
-	if body.is_in_group("player") or body.name.substr(0, 6).to_lower() == "player":
+	if body is Player:
 		target_node = body
 
 func _on_aggro_area_body_exited(body: Node3D) -> void:
