@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dh6gqjbp0iisl"]
-
-[ext_resource type="Script" uid="uid://d331pwaflbh16" path="res://GraysonFolder/player_stat_manager.gd" id="1_mtwl5"]
-
-[node name="PlayerStatManager" type="Node"]
-script = ExtResource("1_mtwl5")
