@@ -8,6 +8,10 @@
 
 config_version=5
 
+[Fmod]
+
+General/banks_path="res://sounds/banks"
+
 [application]
 
 config/name="Project Star"
@@ -17,10 +21,16 @@ config/icon="uid://6yho8q064sn0"
 [autoload]
 
 AudioManager="res://scripts/audio/AudioManager.gd"
+FmodManager="*res://addons/fmod/FmodManager.gd"
+MasterBankLoader="*res://sounds/MasterBankLoader.tscn"
 
 [dotnet]
 
 project/assembly_name="Project Star"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/fmod/plugin.cfg")
 
 [global_group]
 
