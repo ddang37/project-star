@@ -60,7 +60,8 @@ func swap_char(idx: int):
 		current_char.visible = false
 		current_char.set_process_mode(Node.PROCESS_MODE_DISABLED) # disables all processing
 		new_char.set_global_transform(current_char.get_global_transform())
-		
+		new_char.velocity = current_char.velocity
+		new_char.reset_physics_interpolation()
 		# TODO: Manage state
 		# Could set the new character's state to the former selected character's through some sort of map
 		# Could also just reset the state to some general one like idle or walk if the FSM is good enough
