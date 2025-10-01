@@ -2,7 +2,10 @@
 class_name PlayerManager
 extends Node3D
 
-var current_char: CharacterBody3D
+@onready var current_char: Player
+
+signal new_player(value : Player)
+
 
 func _ready() -> void:
 	# TODO: Should load or somehow maintain the character's selected char throughout scenes
@@ -69,3 +72,5 @@ func swap_char(idx: int):
 		current_char = new_char
 		current_char.visible = true
 		current_char.set_process_mode(Node.PROCESS_MODE_ALWAYS)
+		
+		new_player.emit(current_char)

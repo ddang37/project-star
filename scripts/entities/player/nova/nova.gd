@@ -5,7 +5,6 @@ class_name Nova extends Player
 @onready var poke_box: Area3D = $Hitboxes/Poke
 @onready var dash_box: Area3D = $Hitboxes/Dash
 
-@onready var state_machine: PlayerStateMachine = $StateMachine
 @onready var anim = $DummyAnimation
 
 @export_category("Damage Values")

@@ -10,6 +10,8 @@ signal killed
 @export var _hp: float = 10.0
 @export var _max_hp: float = 10.0
 
+@onready var state_machine: StateMachine = $StateMachine
+
 var _status_effects: Dictionary[EntityEffect.EffectID, EntityEffect] = {}
 var _stopped_effects: Array[EntityEffect.EffectID] = []
 
