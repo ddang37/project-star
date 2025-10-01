@@ -31,7 +31,7 @@ func _exit_tree() -> void:
 func change_label(state_name : String):
 	label.text = state_name
 
-func swap_character(value : Player):
+func swap_character(value : Entity):
 	statemachine.state_entered.disconnect(change_label)
 	
 	statemachine = value.state_machine
@@ -39,7 +39,7 @@ func swap_character(value : Player):
 	label.text = statemachine.state.name
 
 func setup_debug():
-	character = get_parent() as Player
+	character = get_parent() as Entity
 	if (character):
 		statemachine = character.state_machine
 	player_manager = get_parent() as PlayerManager
