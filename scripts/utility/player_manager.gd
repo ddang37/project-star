@@ -1,3 +1,5 @@
+@tool
+class_name PlayerManager
 extends Node3D
 
 var current_char: CharacterBody3D
@@ -8,18 +10,38 @@ func _ready() -> void:
 	current_char = get_child(0)
 	current_char.set_process_mode(Node.PROCESS_MODE_ALWAYS)
 	for c in get_children():
+		if !(c is Player): 
+			## yes, i know this is a return, i know what it does. no continue
+			return
+		
 		if c.name != current_char.name:
 			c.visible = false
 			c.set_process_mode(Node.PROCESS_MODE_DISABLED)
+		
+		c.top_level = true
+		c.global_position = global_position
+		c.global_rotation = global_rotation
 	
 
 func _process(delta: float) -> void:
+	if (Engine.is_editor_hint()):
+		for c in get_children():
+			if (c is Player):
+				c.global_position = global_position
+				c.global_rotation = global_rotation
+		return
+	
 	if (Input.is_action_just_pressed("select_char1")):
 		swap_char(0)
 	elif (Input.is_action_just_pressed("select_char2")):
 		swap_char(1)
 	elif (Input.is_action_just_pressed("select_char3")):
 		swap_char(2)
+	
+	## this line works because the players are top_level. 
+	## allowing external code to be able to see the player still in edgecases
+	global_position = current_char.global_position
+
 
 '''
 	Uses node hierarchy for character switching, assuming characters are the only direct children 
