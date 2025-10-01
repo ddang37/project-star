@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bry7x0hcx2p1b"]
+[gd_scene load_steps=9 format=3 uid="uid://bry7x0hcx2p1b"]
 
 [ext_resource type="PackedScene" uid="uid://brmdsiu0kp6ca" path="res://scripts/entities/player/player_manager.tscn" id="1_2iay3"]
 [ext_resource type="MeshLibrary" uid="uid://b88u34a3ref8h" path="res://art_assets/environment/level_1/level1tiles.tres" id="3_2lxpy"]
 [ext_resource type="PackedScene" uid="uid://cy13cantipmem" path="res://scenes/sub/TestEnemy.tscn" id="4_s1umf"]
+[ext_resource type="PackedScene" uid="uid://cwo7k5blghvxp" path="res://scripts/dev/Throttle/FrameLimiter.tscn" id="4_v2ad8"]
 
 [sub_resource type="Environment" id="Environment_bly0l"]
 background_mode = 1
@@ -59,3 +60,10 @@ skeleton = NodePath("../..")
 [node name="TestEnemy" parent="." instance=ExtResource("4_s1umf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.163902, 1.1084971, 0)
 _movement_speed = 5.0
+
+[node name="FrameLimiter" parent="." instance=ExtResource("4_v2ad8")]
+offset_left = -228.99994
+offset_top = 14.0
+offset_right = 180.0
+offset_bottom = 300.0
+scale = Vector2(0.52616984, 0.52616984)
