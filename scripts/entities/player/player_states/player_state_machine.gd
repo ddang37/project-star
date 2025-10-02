@@ -16,3 +16,11 @@ func _ready() -> void:
 		assert(state_node is PlayerState)
 		assert(state_node.name in PlayerState.VALID_STATES)
 	super()
+	
+func swap_out() -> void:
+	assert(state.name in [PlayerState.IDLE, PlayerState.MOVING], "Bad Call to Swap Out")
+	state.trigger_finished.emit(PlayerState.SWAP_OUT)
+	
+func swap_in() -> void:
+	assert(state.name in [PlayerState.SLEEPING], "Bad Call to Swap In")
+	state.trigger_finished.emit(PlayerState.SWAP_IN)
