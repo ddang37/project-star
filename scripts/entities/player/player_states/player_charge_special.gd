@@ -7,11 +7,12 @@ signal max_charge_count
 var time_active: float = 0
 var charges: int = 0
 
-func enter(_previous_state_path: String, _data := {}) -> void:
+func enter(_previous_state_path: String, data := {}) -> void:
 	entered.emit()
-	time_active = 0;
-	charges = 0
-	player.has_special = false
+	time_active = data.get("time", 0);
+	charges = floor(time_active / player.attack_charge_time)
+	if charges > 0:
+		charge_count_increase.emit(charges)
 	
 
 func update(_delta: float) -> void:
@@ -24,10 +25,8 @@ func physics_update(delta: float) -> void:
 	if charges < player.max_special_charges and floor(time_active / player.special_charge_time) > charges:
 		charges += 1
 		charge_count_increase.emit()
-		print("emit")
 		if charges == player.max_special_charges:
 			max_charge_count.emit()
-			print("emit max")
 
 	if Input.is_action_just_pressed("synergy_burst"):
 		trigger_finished.emit(BURSTING)
