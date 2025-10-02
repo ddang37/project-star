@@ -61,3 +61,8 @@ func dash(dist := dash_distance) -> void:
 			if ray.is_colliding() else dist
 	position += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * dash_target_dist
 	get_tree().create_timer(dash_cd).timeout.connect(func(): can_dash = true)
+	
+func trigger_death() -> void:
+	push_error("Player has Died")
+	assert(false)
+	

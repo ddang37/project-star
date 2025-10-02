@@ -7,7 +7,7 @@ var time_active: float = 0
 var charges: int = 0
 
 func enter(_previous_state_path: String, _data := {}) -> void:
-	entered.emit(name, _previous_state_path)
+	entered.emit()
 	charges = 0
 	time_active = 0;
 	
@@ -29,15 +29,15 @@ func physics_update(delta: float) -> void:
 		
 
 	if Input.is_action_just_pressed("synergy_burst"):
-		finished.emit(BURSTING)
+		trigger_finished.emit(BURSTING)
 	if Input.is_action_just_pressed("dodge"):
 		player.dash()
-		finished.emit(MOVING if player.velocity else IDLE)
+		trigger_finished.emit(MOVING if player.velocity else IDLE)
 	elif  Input.is_action_just_released("basic_attack"):
 		if time_active > player.attack_charge_time:
-			finished.emit(ATTACKING_CHARGED, {"charges": charges, "charge_time": time_active})
+			trigger_finished.emit(ATTACKING_CHARGED, {"charges": charges, "charge_time": time_active})
 		else:
-			finished.emit(ATTACKING)
+			trigger_finished.emit(ATTACKING)
 		
 func end() -> void:
 	pass
