@@ -19,17 +19,24 @@ top_level = true
 _movement_speed = 5.0
 
 [node name="Nova2" parent="." instance=ExtResource("2_dvwxt")]
-process_mode = 3
 top_level = true
-_movement_speed = 5.0
+_movement_speed = 9.0
+
+[node name="Charging SFX" parent="Nova2/StateMachine/Charging" index="0"]
+event_guid = "{0000000a-0000-0000-0000-000006000000}"
+
+[node name="Attack SFX" parent="Nova2/StateMachine/Attacking" index="0"]
+event_guid = "{55c0373e-0000-0000-0000-0000968b58fc}"
 
 [node name="MeshInstance3D" parent="Nova2" index="2"]
 surface_material_override/0 = SubResource("StandardMaterial3D_3c5ji")
 
 [node name="Nova3" parent="." instance=ExtResource("2_dvwxt")]
-process_mode = 3
 top_level = true
-_movement_speed = 5.0
+_movement_speed = 9.0
+
+[node name="Charging SFX" parent="Nova3/StateMachine/Charging" index="0"]
+event_guid = "{00000003-0000-0000-0f00-000000000000}"
 
 [node name="MeshInstance3D" parent="Nova3" index="2"]
 surface_material_override/0 = ExtResource("3_dvwxt")
@@ -48,10 +55,16 @@ size = 30.0
 script = ExtResource("4_mbt4c")
 noise = SubResource("FastNoiseLite_2lxpy")
 
-[node name="FmodListener3D" type="FmodListener3D" parent="CameraTarget/Camera3D"]
-
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
 bank_paths = ["res://sounds/banks/Player.bank"]
+
+[node name="FmodListener3D" type="FmodListener3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[connection signal="special_dash" from="Nova2/StateMachine/AttackingSpecial" to="Nova2/DummyAnimation" method="special_dash"]
+[connection signal="special_dash" from="Nova2/StateMachine/AttackingChargedSpecial" to="Nova2/DummyAnimation" method="special_dash"]
+[connection signal="special_dash" from="Nova3/StateMachine/AttackingSpecial" to="Nova3/DummyAnimation" method="special_dash"]
+[connection signal="special_dash" from="Nova3/StateMachine/AttackingChargedSpecial" to="Nova3/DummyAnimation" method="special_dash"]
 
 [editable path="Nova2"]
 [editable path="Nova3"]

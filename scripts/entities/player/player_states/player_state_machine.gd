@@ -12,7 +12,7 @@ Others that can be applied to any player like movement should be named:
 
 
 func _ready() -> void:
-	for state_node in find_children("*"):
+	for state_node in get_children():
 		assert(state_node is PlayerState)
 		assert(state_node.name in PlayerState.VALID_STATES)
 	super()

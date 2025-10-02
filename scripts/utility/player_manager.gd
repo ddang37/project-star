@@ -8,6 +8,7 @@ signal new_player(value : Player)
 
 
 func _ready() -> void:
+	if (Engine.is_editor_hint()): return
 	# TODO: Should load or somehow maintain the character's selected char throughout scenes
 	# e.g. if the player leaves scene1 and enters scene2, they should have the same selected character
 	current_char = get_child(0)

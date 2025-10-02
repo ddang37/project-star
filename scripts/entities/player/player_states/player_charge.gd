@@ -21,7 +21,7 @@ func physics_update(delta: float) -> void:
 	time_active += delta
 	if charges < player.max_attack_charges and floor(time_active / player.attack_charge_time) > charges:
 		charges += 1
-		charge_count_increase.emit()
+		charge_count_increase.emit(charges)
 		print("emit")
 		if charges == player.max_attack_charges:
 			max_charge_count.emit()

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bry7x0hcx2p1b"]
+[gd_scene load_steps=10 format=3 uid="uid://bry7x0hcx2p1b"]
 
 [ext_resource type="PackedScene" uid="uid://brmdsiu0kp6ca" path="res://scripts/entities/player/player_manager.tscn" id="1_2iay3"]
+[ext_resource type="Script" uid="uid://bnlbf0esux7lk" path="res://scripts/utility/states/state_label.gd" id="2_6vw01"]
 [ext_resource type="MeshLibrary" uid="uid://b88u34a3ref8h" path="res://art_assets/environment/level_1/level1tiles.tres" id="3_2lxpy"]
 [ext_resource type="PackedScene" uid="uid://cy13cantipmem" path="res://scenes/sub/TestEnemy.tscn" id="4_s1umf"]
 [ext_resource type="PackedScene" uid="uid://cwo7k5blghvxp" path="res://scripts/dev/Throttle/FrameLimiter.tscn" id="4_v2ad8"]
@@ -28,7 +29,7 @@ albedo_color = Color(0.16739999, 0.40878665, 0.62, 1)
 [node name="Prototype" type="Node3D"]
 
 [node name="FmodBankLoader" type="FmodBankLoader" parent="."]
-bank_paths = ["res://sounds/banks/Enemys.bank"]
+bank_paths = ["res://sounds/banks/Enemys.bank", "res://sounds/banks/Ambiance.bank"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.996632, 0, 0.0820081, 0.0619636, 0.655057, 0.753034, -0.05372, 0.755579, -0.652851, 0, 22.456, 0)
@@ -38,6 +39,9 @@ environment = SubResource("Environment_bly0l")
 
 [node name="PlayerManager" parent="." instance=ExtResource("1_2iay3")]
 transform = Transform3D(-0.5629493, 0, 0.8264915, 0, 1, 0, -0.8264915, 0, -0.5629493, 15.6510315, 0, 9.251869)
+
+[node name="Node" type="Node" parent="PlayerManager"]
+script = ExtResource("2_6vw01")
 
 [node name="geo" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_v2ad8")
@@ -67,3 +71,8 @@ offset_top = 14.0
 offset_right = 180.0
 offset_bottom = 300.0
 scale = Vector2(0.52616984, 0.52616984)
+
+[node name="Ambiance" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Levels/GrassLand/Background Ambiance"
+event_guid = "{fbb12ac9-23d2-4ea8-a105-cdd7402e8bca}"
+autoplay = true

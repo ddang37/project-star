@@ -3,16 +3,16 @@
 [ext_resource type="Script" uid="uid://om4qdtr1cye0" path="res://scripts/entities/player/nova/nova.gd" id="1_p5oh7"]
 [ext_resource type="Shader" uid="uid://bj52sv4noi8eh" path="res://shaders/prototype.tres" id="2_xdlwu"]
 [ext_resource type="Script" path="res://scripts/dev/debug_render_hitboxes.gd" id="3_6m1nx"]
-[ext_resource type="Script" uid="uid://cvw6ajdumfkos" path="res://scripts/entities/player/nova/nova_dummy_anim.gd" id="3_h31i5"]
+[ext_resource type="Script" path="res://scripts/entities/player/nova/nova_dummy_anim.gd" id="3_h31i5"]
 [ext_resource type="Script" uid="uid://b5x83pb133x8d" path="res://scripts/entities/player/player_states/player_state_machine.gd" id="4_lfcoe"]
-[ext_resource type="Script" uid="uid://dq5qwb33mlr2l" path="res://scripts/entities/player/player_states/player_moving.gd" id="5_lfcoe"]
-[ext_resource type="Script" uid="uid://bpndinylqyege" path="res://scripts/entities/player/player_states/player_idle.gd" id="5_xhleb"]
+[ext_resource type="Script" path="res://scripts/entities/player/player_states/player_moving.gd" id="5_lfcoe"]
+[ext_resource type="Script" path="res://scripts/entities/player/player_states/player_idle.gd" id="5_xhleb"]
 [ext_resource type="Script" uid="uid://dbibjhk11ovnr" path="res://scripts/entities/player/player_states/player_charge.gd" id="7_w7jsq"]
-[ext_resource type="Script" uid="uid://duy3nnii2osyx" path="res://scripts/entities/player/nova/states/nova_attack.gd" id="8_hun6t"]
-[ext_resource type="Script" uid="uid://bht7ur6aqu5my" path="res://scripts/entities/player/player_states/player_charge_special.gd" id="9_8b4uh"]
+[ext_resource type="Script" path="res://scripts/entities/player/nova/states/nova_attack.gd" id="8_hun6t"]
+[ext_resource type="Script" path="res://scripts/entities/player/player_states/player_charge_special.gd" id="9_8b4uh"]
 [ext_resource type="Script" uid="uid://jah7iax60wqa" path="res://scripts/entities/player/nova/states/nova_attack_charged.gd" id="9_h31i5"]
-[ext_resource type="Script" uid="uid://8e04epciukwh" path="res://scripts/entities/player/nova/states/nova_attack_special.gd" id="10_h31i5"]
-[ext_resource type="Script" uid="uid://cauiecxurft0c" path="res://scripts/entities/player/nova/states/nove_attack_special_charged.gd" id="12_k5vrc"]
+[ext_resource type="Script" path="res://scripts/entities/player/nova/states/nova_attack_special.gd" id="10_h31i5"]
+[ext_resource type="Script" path="res://scripts/entities/player/nova/states/nove_attack_special_charged.gd" id="12_k5vrc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_21ndv"]
 
@@ -52,14 +52,34 @@ script = ExtResource("5_xhleb")
 [node name="Moving" type="Node" parent="StateMachine"]
 script = ExtResource("5_lfcoe")
 
+[node name="Footstep SFX" type="FmodEventEmitter3D" parent="StateMachine/Moving"]
+event_name = "event:/Player/Footsteps/Cave Footstep"
+event_guid = "{1786b3c0-0467-4017-8d6d-95457d0666de}"
+
 [node name="Charging" type="Node" parent="StateMachine"]
 script = ExtResource("7_w7jsq")
+
+[node name="Charging Ready SFX" type="FmodEventEmitter3D" parent="StateMachine/Charging"]
+event_name = "event:/Player/Uniques/Charging/Nova Charging Ready"
+event_guid = "{23409221-4198-492f-a97b-47731df994d2}"
+
+[node name="Charging SFX" type="FmodEventEmitter3D" parent="StateMachine/Charging"]
+event_name = "event:/Player/Uniques/Charging/Nova Charging"
+event_guid = "{ae35a316-7807-4d22-94f3-798abfea4c5d}"
 
 [node name="Attacking" type="Node" parent="StateMachine"]
 script = ExtResource("8_hun6t")
 
+[node name="Attack SFX" type="FmodEventEmitter3D" parent="StateMachine/Attacking"]
+event_name = "event:/Enemys/Sword Slash"
+event_guid = "{f28d5112-94d3-4769-8ac9-b5174d2719ae}"
+
 [node name="AttackingCharged" type="Node" parent="StateMachine"]
 script = ExtResource("9_h31i5")
+
+[node name="AttackCharged SFX" type="FmodEventEmitter3D" parent="StateMachine/AttackingCharged"]
+event_name = "event:/Player/Uniques/Charged Attack/Nova Charged Attack"
+event_guid = "{c37be128-c419-442f-9d08-d6e0895a5e23}"
 
 [node name="ChargingSpecial" type="Node" parent="StateMachine"]
 script = ExtResource("9_8b4uh")
@@ -134,8 +154,29 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/Slash"]
 shape = SubResource("BoxShape3D_x427t")
 
+[node name="Hurt SFX" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Player/Uniques/Hurt/Nova Hurt"
+event_guid = "{220c3cb7-af5f-4662-90c5-1a103656ae58}"
+
+[node name="Death SFX" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Player/Uniques/Death/Nova Death"
+event_guid = "{2d5b4a29-ca66-40a9-9da8-db918424ec2c}"
+
+[node name="Dash SFX" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Player/Dash/Base Dash"
+event_guid = "{c01c64a7-fee5-463c-adda-e0bf3a57057b}"
+
+[connection signal="hurt" from="." to="Hurt SFX" method="play_one_shot" unbinds=1]
+[connection signal="killed" from="." to="Death SFX" method="play_one_shot"]
+[connection signal="player_dashed" from="." to="Dash SFX" method="play_one_shot"]
+[connection signal="entered" from="StateMachine/Moving" to="StateMachine/Moving/Footstep SFX" method="play" unbinds=1]
+[connection signal="finished" from="StateMachine/Moving" to="StateMachine/Moving/Footstep SFX" method="stop" unbinds=1]
+[connection signal="charge_count_increase" from="StateMachine/Charging" to="StateMachine/Charging/Charging Ready SFX" method="play_one_shot" unbinds=1]
+[connection signal="entered" from="StateMachine/Charging" to="StateMachine/Charging/Charging SFX" method="play_one_shot" unbinds=2]
 [connection signal="entered" from="StateMachine/Attacking" to="DummyAnimation" method="attack" unbinds=3]
+[connection signal="entered" from="StateMachine/Attacking" to="StateMachine/Attacking/Attack SFX" method="play_one_shot" unbinds=3]
 [connection signal="entered" from="StateMachine/AttackingCharged" to="DummyAnimation" method="attack_charged" unbinds=2]
+[connection signal="entered" from="StateMachine/AttackingCharged" to="StateMachine/AttackingCharged/AttackCharged SFX" method="play_one_shot" unbinds=2]
 [connection signal="special_dash" from="StateMachine/AttackingSpecial" to="DummyAnimation" method="special_dash"]
 [connection signal="special_dash" from="StateMachine/AttackingChargedSpecial" to="DummyAnimation" method="special_dash"]
 [connection signal="attack_charged_done" from="DummyAnimation" to="StateMachine/AttackingCharged" method="end"]
