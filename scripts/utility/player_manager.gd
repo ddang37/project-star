@@ -7,6 +7,9 @@ extends Node3D
 signal new_player(value : Player)
 
 
+func _init() -> void:
+	GameManager.player_manager = self
+
 func _ready() -> void:
 	# TODO: Should load or somehow maintain the character's selected char throughout scenes
 	# e.g. if the player leaves scene1 and enters scene2, they should have the same selected character
