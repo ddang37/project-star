@@ -8,7 +8,7 @@ var lock_rotation := true
 
 
 func enter(_previous_state_path: String, data := {}) -> void:
-	entered.emit(name, _previous_state_path)
+	entered.emit()
 	charges = data.get("charges", 1)
 	nova.dash_box.monitoring = true
 	lock_rotation = true
@@ -19,7 +19,7 @@ func run_special_dash(first: bool):
 	if charges == 0:
 		# Fake Animation Wait to end attack state
 		get_tree().create_timer(0.1).timeout.connect(
-			finished.emit.bind(MOVING if player.velocity else IDLE))
+			trigger_finished.emit.bind(MOVING if player.velocity else IDLE))
 		return
 	elif not first:
 		lock_rotation = false

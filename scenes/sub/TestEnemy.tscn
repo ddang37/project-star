@@ -16,8 +16,6 @@ height = 2.0
 collision_layer = 10
 collision_mask = 3
 script = ExtResource("1_ubbc6")
-_movement_speed = 10.0
-faction = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4wg20")
@@ -27,3 +25,14 @@ debug_fill = false
 mesh = SubResource("SphereMesh_swy48")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Hurt SFX" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Enemys/DracoSkele/DracoSkele Hit"
+event_guid = "{25833449-1b73-413e-9b21-c678c12fee73}"
+
+[node name="Death SFX" type="FmodEventEmitter3D" parent="."]
+event_name = "event:/Enemys/DracoSkele/DracoSkele Die"
+event_guid = "{d2f4bf3a-af7c-4209-aa30-7072c04bcd69}"
+
+[connection signal="hurt" from="." to="Hurt SFX" method="play_one_shot" unbinds=1]
+[connection signal="killed" from="." to="Death SFX" method="play_one_shot"]
