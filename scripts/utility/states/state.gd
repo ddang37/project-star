@@ -1,8 +1,9 @@
 @abstract
 class_name State extends Node
 
-signal entered(state: String, prev_state: String, data: Dictionary)
-signal finished(state: String, next_state: String, data: Dictionary)
+signal entered
+signal trigger_finished(state: String, next_state: String, data: Dictionary)
+signal finished # Emitted by state manager after trigger_finished but before exit()
 
 ## Called on state machine process
 @abstract
