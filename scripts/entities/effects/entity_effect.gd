@@ -2,7 +2,8 @@
 class_name EntityEffect extends Node3D
 
 enum EffectID {
-	DEBUG_EFFECT
+	DEBUG_EFFECT,
+	MERGED
 }
 var id: EffectID
 var _entity: Entity
@@ -17,6 +18,7 @@ func try_apply(entity: Entity) -> bool:
 		assert(false, "Entity not provided for effect")
 		return false
 	_entity = entity
+	entity.add_child(self)
 	return true
 
 ## Called to process the [EntityEffect] and indicate when it is done.[br]
