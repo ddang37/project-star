@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xbdggdj3pecd"
-path.s3tc="res://.godot/imported/JTAS Title Banner.png-ab959ddcb7097e01d764acfc836fa113.s3tc.ctex"
+uid="uid://bugefgtvt5a83"
+path.s3tc="res://.godot/imported/nova_star.png-10865783eb85bc70b19139c39352d566.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/dev/rachael_s/JTAS Title Banner.png"
-dest_files=["res://.godot/imported/JTAS Title Banner.png-ab959ddcb7097e01d764acfc836fa113.s3tc.ctex"]
+source_file="res://scenes/dev/arshiya_r/nova_star.png"
+dest_files=["res://.godot/imported/nova_star.png-10865783eb85bc70b19139c39352d566.s3tc.ctex"]
 
 [params]
 
