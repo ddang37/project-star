@@ -11,8 +11,8 @@ albedo_color = Color(0.9999997, 0.42079863, 0.9937175, 0.30980393)
 material = SubResource("StandardMaterial3D_nv6y1")
 
 [node name="SpawnArea" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 0.01, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_nv6y1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_me3p1")

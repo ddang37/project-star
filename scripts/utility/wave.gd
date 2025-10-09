@@ -1,3 +1,5 @@
+@icon("res://addons/fmod/icons/bank_icon.svg")
+@tool
 extends Node3D
 
 class_name Wave
@@ -7,8 +9,10 @@ class_name Wave
 # Elimination-based wave progression, could also implement time-based
 # @export_category("Wave Type")
 # @export var isEliminationBased = true
+## how many enemys that are still alive before we consider the wave ended (ie. Stragglers)
 @export var enemiesLeftUntilNextWave = 0
 
+signal started
 signal ended
 
 @export_category("Which areas will this wave spawn in?")
@@ -16,13 +20,25 @@ signal ended
 
 @export_category("Set or Random Spawn Areas for enemy spawning?")
 @export var setSpawnAreas := false
-@export_category("If you said yes, type the spawn area index for each enemy.")
-@export var spawnAreaIndices : Array[int]
 
+
+@export_category("If you said yes, type the spawn area index for each enemy.")
+@export var spawnAreaIndices : Array[int] : 
+	set(value):
+		var safe : bool = setSpawnAreas
+		for i in value:
+			if (i >= spawn_areas.size() and i >= 0):
+				safe = false
+				break
+		if (safe):
+			spawnAreaIndices = value
 
 @onready var active = false
 
 func _ready():
+	if (Engine.is_editor_hint()):
+		return
+	
 	ended.connect(get_parent()._on_wave_end)
 
 func start():
@@ -42,7 +58,8 @@ func start():
 			instance.global_position = area.get_rand_point() + Vector3.UP * instance.get_node("CollisionShape3D").shape.size/2
 		else:
 			instance.global_position = area.get_rand_point() + Vector3(0.0, 1.0, 0.0)
-
+	started.emit()
+	
 # TODO: func start_staggered()
 # an option to not have enemies all spawn at once for a wave
 # utilizes a linear timer, maybe could do an exponential sometime
@@ -53,6 +70,7 @@ func check():
 	if get_children().size() <= enemiesLeftUntilNextWave:
 		active = false
 		ended.emit()
+		print("ended")
 
 func is_active():
 	return active
