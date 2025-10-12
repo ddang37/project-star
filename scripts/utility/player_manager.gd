@@ -72,3 +72,11 @@ func swap_char(idx: int):
 		(current_char.state_machine as PlayerStateMachine).swap_out()
 		(new_char.state_machine as PlayerStateMachine).swap_in()
 		current_char = new_char
+
+
+func _on_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.
