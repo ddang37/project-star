@@ -1,4 +1,5 @@
 @abstract
+@icon("uid://cwpe5paiqd48f")
 class_name State extends Node
 
 signal entered
@@ -17,7 +18,7 @@ func physics_update(_delta: float) -> void
 @abstract
 func enter(_prev_state: String, _data := {}) -> void
 
-## Call for another script to end this state. Should pick the next state and emit finished.
+## Call for another script to end this state. Should pick the next state and emit trigger_finished.
 @abstract
 func end() -> void
 	
